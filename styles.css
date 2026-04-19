@@ -563,6 +563,9 @@ section p + p {
 }
 
 .entry-back-link__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 12px;
   height: 12px;
   color: color-mix(in oklab, var(--mono12) 92%, var(--fg));
@@ -1055,9 +1058,10 @@ footer > div > :first-child {
     min-width: 0;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.95;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    opacity: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transition: opacity var(--transition-med) var(--ease-out-strong);
   }
 
   .projects-scroller::before {
@@ -1072,6 +1076,13 @@ footer > div > :first-child {
     background: linear-gradient(to left, var(--bg), transparent 72%);
     mask-image: linear-gradient(to left, black 28%, transparent);
     -webkit-mask-image: linear-gradient(to left, black 28%, transparent);
+  }
+
+  .projects-scroller.is-scrolling::before,
+  .projects-scroller.is-scrolling::after {
+    opacity: 0.95;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
   }
 
   .stack > * + * {

@@ -80,3 +80,46 @@ if (typewriterNode instanceof HTMLElement) {
     });
   }
 }
+
+const mobileScrollerQuery = window.matchMedia("(max-width: 768px)");
+const projectsScrollers = document.querySelectorAll(".projects-scroller");
+
+const bindMobileScrollerBlur = (scroller) => {
+  let clearScrollingStateTimer = 0;
+
+  const setScrollingState = () => {
+    scroller.classList.add("is-scrolling");
+
+    if (clearScrollingStateTimer > 0) {
+      window.clearTimeout(clearScrollingStateTimer);
+    }
+
+    clearScrollingStateTimer = window.setTimeout(() => {
+      scroller.classList.remove("is-scrolling");
+      clearScrollingStateTimer = 0;
+    }, 140);
+  };
+
+  scroller.addEventListener("scroll", () => {
+    if (!mobileScrollerQuery.matches) {
+      scroller.classList.remove("is-scrolling");
+      return;
+    }
+
+    setScrollingState();
+  }, { passive: true });
+
+  scroller.addEventListener("touchstart", () => {
+    if (!mobileScrollerQuery.matches) {
+      return;
+    }
+
+    setScrollingState();
+  }, { passive: true });
+};
+
+projectsScrollers.forEach((scroller) => {
+  if (scroller instanceof HTMLElement) {
+    bindMobileScrollerBlur(scroller);
+  }
+});
