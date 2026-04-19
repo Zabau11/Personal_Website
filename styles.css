@@ -954,8 +954,8 @@ footer > div > :first-child {
 @media (max-width: 768px) {
   :root {
     --page-top: 76px;
-    --body-margin-left: max(16px, env(safe-area-inset-left));
-    --body-margin-right: max(16px, env(safe-area-inset-right));
+    --body-margin-left: max(20px, env(safe-area-inset-left));
+    --body-margin-right: max(20px, env(safe-area-inset-right));
     --page-blur-strength: 8px;
   }
 
@@ -1103,18 +1103,30 @@ footer > div > :first-child {
     flex-wrap: wrap;
     gap: 8px 14px;
     white-space: normal;
+    justify-content: center;
+    text-align: center;
   }
 
   footer > div > :first-child {
     flex-basis: 100%;
     margin-right: 0;
+    text-align: center;
+  }
+
+  footer > div > :nth-child(2) {
+    flex-basis: 100%;
+    text-align: center;
+  }
+
+  footer > div > :last-child {
+    display: none;
   }
 }
 
 @media (max-width: 520px) {
   :root {
-    --body-margin-left: max(14px, env(safe-area-inset-left));
-    --body-margin-right: max(14px, env(safe-area-inset-right));
+    --body-margin-left: max(18px, env(safe-area-inset-left));
+    --body-margin-right: max(18px, env(safe-area-inset-right));
   }
 
   .logo-button__text {
