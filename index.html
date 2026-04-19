@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>David Sabau</title>
+    <meta
+      name="description"
+      content="Personal website of David Sabau. AI student building real-world solutions through vibe coding, practical experimentation, and thoughtful execution."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="site-root" id="home">
+      <a class="logo-button" href="#home" aria-label="Go to top">
+        <span
+          class="logo-button__text"
+          data-typewriter
+          data-text="https://zabau.ceo"
+          >https://zabau.ceo</span
+        >
+      </a>
+
+      <div class="blur" aria-hidden="true"></div>
+
+      <main>
+        <div class="main-grid">
+          <article class="prose" data-animation-controller="true">
+            <div class="intro">
+              <h1 data-animate>David Sabau</h1>
+
+              <p style="--stagger: 1" data-animate>
+                <em
+                  >Solving real-world problems at the intersection of AI logic and intuitive vibe
+                  coding.</em
+                >
+                I am an AI student dedicated to turning abstract ideas into functional, high-impact
+                products. By blending machine learning fundamentals with rapid, modern development
+                workflows, I build tools that bridge the gap between complex systems and meaningful
+                user experiences.
+              </p>
+            </div>
+
+            <div class="projects-scroller" data-animate style="--stagger: 2">
+              <div class="stack">
+                <section class="column">
+                  <h2 class="label">Learning</h2>
+                  <div class="column-items">
+                    <div class="item">
+                      <div class="item-title-row">
+                        <span class="item-title">Bachelor's in AI</span>
+                      </div>
+                      <p class="dim">
+                        I am currently pursuing a Bachelor's degree in Artificial Intelligence,
+                        where I am building a strong foundation in machine learning, intelligent
+                        systems, and practical AI problem-solving.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="column">
+                  <h2 class="label">Featured</h2>
+                  <div class="column-items">
+                    <div class="item">
+                      <div class="item-title-row">
+                        <a href="https://www.clearize.app" rel="noopener" target="_blank">Clearize</a>
+                        <span class="external-icon" aria-hidden="true">↗</span>
+                      </div>
+                      <p class="dim">
+                        Clearize is an AI-powered real estate photo enhancement platform that turns
+                        ordinary property photos into clean, listing-ready visuals in seconds. It
+                        removes clutter, improves lighting, and preserves the true layout of each
+                        space so agents, property managers, and hosts can publish more attractive,
+                        trustworthy listings.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="column" id="passion">
+                  <h2 class="label">Passion</h2>
+                  <div class="column-items">
+                    <div class="item">
+                      <div class="item-title-row">
+                        <span class="item-title">Vibe Coding</span>
+                      </div>
+                      <p class="dim">
+                        Building useful products from raw ideas through fast, AI-assisted iteration.
+                      </p>
+                    </div>
+
+                    <div class="item">
+                      <div class="item-title-row">
+                        <span class="item-title">Running</span>
+                      </div>
+                      <p class="dim">
+                        Distance running builds discipline and resilience while giving me a strong
+                        mental reset.
+                      </p>
+                    </div>
+
+                    <div class="item">
+                      <div class="item-title-row">
+                        <a href="./writing.html">Writing</a>
+                      </div>
+                      <p class="dim">
+                        A growing archive of personal notes, reflections, and progress over time.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <section id="now" data-animate style="--stagger: 4">
+              <h2>Now</h2>
+              <p>
+                Right now I am balancing my Bachelor's in AI with building and shipping practical
+                products that solve real-world problems.
+              </p>
+              <p>
+                After launching Clearize, I am currently building something larger: a broader
+                AI-driven product direction focused on useful tools, fast execution, and long-term
+                impact.
+              </p>
+              <p>
+                I stay grounded through consistent running and an active social life, which helps me
+                reset, keep perspective, and sustain momentum across building, health, and growth.
+              </p>
+            </section>
+
+            <section id="connect" class="connect-section" data-animate style="--stagger: 5">
+              <h2>Connect</h2>
+              <p class="connect-intro">
+                If you are hiring, building something interesting, or exploring a collaboration,
+                reach me on
+                <a
+                  href="https://www.linkedin.com/in/david-sabau-256834401/"
+                  rel="noopener"
+                  target="_blank"
+                  >LinkedIn</a
+                >
+                or
+                <a href="https://github.com/Zabau11" rel="noopener" target="_blank">GitHub</a>.
+                You can also send a short message below.
+              </p>
+
+              <form
+                class="message-form connect-card"
+                action="mailto:david.sabau34@gmail.com"
+                method="post"
+                enctype="text/plain"
+              >
+
+                <label class="message-field" for="message-email">
+                  <span class="message-field__label">Email</span>
+                  <input
+                    id="message-email"
+                    class="message-field__control"
+                    type="email"
+                    name="email"
+                    autocomplete="email"
+                    placeholder="you@company.com"
+                    required
+                  />
+                </label>
+
+                <label class="message-field" for="message-subject">
+                  <span class="message-field__label">Subject</span>
+                  <input
+                    id="message-subject"
+                    class="message-field__control"
+                    type="text"
+                    name="subject"
+                    autocomplete="on"
+                    placeholder="What is this about?"
+                    required
+                  />
+                </label>
+
+                <label class="message-field" for="message-content">
+                  <span class="message-field__label">Message</span>
+                  <textarea
+                    id="message-content"
+                    class="message-field__control message-field__control--textarea"
+                    name="content"
+                    placeholder="Write your message..."
+                    required
+                  ></textarea>
+                </label>
+
+                <button class="message-submit" type="submit">Send message</button>
+              </form>
+            </section>
+          </article>
+        </div>
+      </main>
+
+      <footer>
+        <div>
+          <span class="small lowcontrast">
+            Built with clarity, consistency, and long-term intent.
+          </span>
+          <span class="small lowcontrast tabular">2026</span>
+          <div></div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
