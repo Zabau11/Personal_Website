@@ -8,6 +8,45 @@ if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }
 
+const forceScrollTop = () => {
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+};
+
+const forceScrollTopAfterRestore = () => {
+  forceScrollTop();
+  window.requestAnimationFrame(() => {
+    forceScrollTop();
+  });
+  window.setTimeout(() => {
+    forceScrollTop();
+  }, 80);
+};
+
+const getNavigationType = () => {
+  const [navigationEntry] = performance.getEntriesByType("navigation");
+
+  if (navigationEntry && "type" in navigationEntry) {
+    return navigationEntry.type;
+  }
+
+  if ("navigation" in performance) {
+    switch (performance.navigation.type) {
+      case performance.navigation.TYPE_RELOAD:
+        return "reload";
+      case performance.navigation.TYPE_BACK_FORWARD:
+        return "back_forward";
+      default:
+        return "navigate";
+    }
+  }
+
+  return "navigate";
+};
+
+const navigationType = getNavigationType();
+
 const scrollToTop = () => {
   window.scrollTo({
     top: 0,
@@ -46,11 +85,17 @@ if (siteTitle instanceof HTMLElement) {
 }
 
 window.addEventListener("beforeunload", () => {
-  window.scrollTo(0, 0);
+  forceScrollTop();
 });
 
 window.addEventListener("load", () => {
-  window.scrollTo(0, 0);
+  forceScrollTopAfterRestore();
+});
+
+window.addEventListener("pageshow", () => {
+  if (navigationType === "reload") {
+    forceScrollTopAfterRestore();
+  }
 });
 
 const typewriterNode = document.querySelector("[data-typewriter]");
