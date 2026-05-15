@@ -1,10 +1,12 @@
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const rootElement = document.documentElement;
+const shouldForceTopOnRestore = document.querySelector(".logo-button") instanceof HTMLAnchorElement;
 
 if (prefersReducedMotion) {
   document.documentElement.setAttribute("data-reduced-motion", "true");
 }
 
-if ("scrollRestoration" in history) {
+if (shouldForceTopOnRestore && "scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }
 
@@ -47,6 +49,34 @@ const getNavigationType = () => {
 
 const navigationType = getNavigationType();
 
+let blurEdgeFrame = 0;
+
+const updateBlurEdgeState = () => {
+  blurEdgeFrame = 0;
+
+  const scrollTop = Math.max(window.scrollY, rootElement.scrollTop, document.body.scrollTop);
+  const scrollHeight = Math.max(rootElement.scrollHeight, document.body.scrollHeight);
+  const maxScroll = Math.max(0, scrollHeight - window.innerHeight);
+  const edgeThreshold = 2;
+
+  rootElement.classList.toggle("is-at-top", scrollTop <= edgeThreshold);
+  rootElement.classList.toggle("is-at-bottom", maxScroll - scrollTop <= edgeThreshold);
+};
+
+const scheduleBlurEdgeStateUpdate = () => {
+  if (blurEdgeFrame > 0) {
+    return;
+  }
+
+  blurEdgeFrame = window.requestAnimationFrame(updateBlurEdgeState);
+};
+
+updateBlurEdgeState();
+window.addEventListener("scroll", scheduleBlurEdgeStateUpdate, { passive: true });
+window.addEventListener("resize", scheduleBlurEdgeStateUpdate);
+window.addEventListener("load", scheduleBlurEdgeStateUpdate);
+window.addEventListener("pageshow", scheduleBlurEdgeStateUpdate);
+
 const scrollToTop = () => {
   window.scrollTo({
     top: 0,
@@ -85,15 +115,19 @@ if (siteTitle instanceof HTMLElement) {
 }
 
 window.addEventListener("beforeunload", () => {
-  forceScrollTop();
+  if (shouldForceTopOnRestore) {
+    forceScrollTop();
+  }
 });
 
 window.addEventListener("load", () => {
-  forceScrollTopAfterRestore();
+  if (shouldForceTopOnRestore) {
+    forceScrollTopAfterRestore();
+  }
 });
 
 window.addEventListener("pageshow", () => {
-  if (navigationType === "reload") {
+  if (shouldForceTopOnRestore && navigationType === "reload") {
     forceScrollTopAfterRestore();
   }
 });
@@ -115,12 +149,6 @@ if (typewriterNode instanceof HTMLElement) {
     Array.from(targetText).forEach((character, index) => {
       window.setTimeout(() => {
         typewriterNode.textContent += character;
-
-        if (index === targetText.length - 1) {
-          window.setTimeout(() => {
-            typewriterNode.classList.remove("is-typing");
-          }, 900);
-        }
       }, startDelay + index * typingStep);
     });
   }
