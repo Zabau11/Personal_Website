@@ -2,7 +2,6 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 const rootElement = document.documentElement;
 const shouldForceTopOnRestore = document.querySelector(".logo-button") instanceof HTMLAnchorElement;
 const themeToggle = document.querySelector("[data-theme-toggle]");
-const themeLabel = document.querySelector("[data-theme-label]");
 
 const getTheme = () => rootElement.dataset.theme === "light" ? "light" : "dark";
 
@@ -20,9 +19,6 @@ const setTheme = (theme) => {
     themeToggle.setAttribute("aria-label", `Switch to ${nextTheme} mode`);
   }
 
-  if (themeLabel instanceof HTMLElement) {
-    themeLabel.textContent = theme === "light" ? "Dark" : "Light";
-  }
 };
 
 if (!rootElement.dataset.theme) {

@@ -34,75 +34,73 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body class="work-page">
-    <div class="site-root">
-      <div class="blur" aria-hidden="true"></div>
-      <div class="blur blur--bottom" aria-hidden="true"></div>
+    <div class="site-root subpage-root">
+      <header class="site-chrome" aria-label="Site header">
+        <a class="site-mark" href="./index.html" aria-label="David Sabau home">
+          <strong>David Sabau</strong>
+          <span class="tabular">2026</span>
+        </a>
 
-      <main>
-        <div class="main-grid">
-          <nav class="entry-back-link" aria-label="Back navigation">
-            <a class="entry-back-link__anchor" href="./index.html" aria-label="Go back to index">
-              <span class="entry-back-link__icon" aria-hidden="true">
-                <svg viewBox="0 0 16 16" focusable="false">
-                  <path
-                    d="M4.5 3.5V11m0-7.5h7"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
-                  />
-                  <path
-                    d="M4.75 3.75 12 11"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.4"
-                  />
-                </svg>
-              </span>
-              <span class="entry-back-link__label"><em>Index</em></span>
+        <nav class="home-nav" aria-label="Primary navigation">
+          <a href="./index.html">Index</a>
+          <a href="./writing.html">Writing</a>
+          <button class="theme-toggle" type="button" aria-label="Switch to light mode" data-theme-toggle>
+            <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" />
+              <path
+                d="M12 2.75v2.5M12 18.75v2.5M21.25 12h-2.5M5.25 12h-2.5M18.54 5.46l-1.77 1.77M7.23 16.77l-1.77 1.77M18.54 18.54l-1.77-1.77M7.23 7.23 5.46 5.46"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="1.8"
+              />
+            </svg>
+            <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M20.25 14.2A7.8 7.8 0 0 1 9.8 3.75 8.25 8.25 0 1 0 20.25 14.2Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+              />
+            </svg>
+          </button>
+        </nav>
+      </header>
+
+      <main class="listing-main">
+        <article class="listing-card" data-animation-controller="true">
+          <a class="listing-back" href="./index.html" data-animate aria-label="Back to index">&lt;- back</a>
+          <p class="index-kicker" data-animate>work / selected builds</p>
+          <h1 data-animate style="--stagger: 1">Projects shipped, tested, or in motion.</h1>
+
+          <section class="work-list" data-animate style="--stagger: 2" aria-label="Selected work">
+            <a class="work-entry" href="https://www.clearize.app" rel="noopener" target="_blank">
+              <span class="work-entry__meta tabular">01</span>
+              <span class="work-entry__title">Clearize</span>
+              <span class="work-entry__description">AI photo cleanup for real estate listings.</span>
             </a>
-          </nav>
 
-          <article class="prose prose--work-index" data-animation-controller="true">
-            <header class="writing-index-header">
-              <h1 data-animate>Work</h1>
-            </header>
+            <a class="work-entry" href="https://peerfindr.com" rel="noopener" target="_blank">
+              <span class="work-entry__meta tabular">02</span>
+              <span class="work-entry__title">Peerfindr</span>
+              <span class="work-entry__description">Competitor monitoring for product signals.</span>
+            </a>
 
-            <section class="work-list" data-animate style="--stagger: 1" aria-label="Selected work">
-              <a class="work-entry" href="https://www.clearize.app" rel="noopener" target="_blank">
-                <span class="work-entry__title">Clearize</span>
-                <span class="work-entry__description">AI photo cleanup for real estate listings.</span>
-              </a>
+            <a class="work-entry" href="https://forkitt.vercel.app" rel="noopener" target="_blank">
+              <span class="work-entry__meta tabular">03</span>
+              <span class="work-entry__title">Forkitt</span>
+              <span class="work-entry__description">Startup discovery for niche product ideas.</span>
+            </a>
 
-              <a class="work-entry" href="https://peerfindr.com" rel="noopener" target="_blank">
-                <span class="work-entry__title">Peerfindr</span>
-                <span class="work-entry__description">Competitor monitoring for product signals.</span>
-              </a>
-
-              <a class="work-entry" href="https://forkitt.vercel.app" rel="noopener" target="_blank">
-                <span class="work-entry__title">Forkitt</span>
-                <span class="work-entry__description">Startup discovery for niche product ideas.</span>
-              </a>
-
-              <a class="work-entry" href="https://trymodelmind.vercel.app" rel="noopener" target="_blank">
-                <span class="work-entry__title">Modelmind</span>
-                <span class="work-entry__description">A prediction game against leading AI models.</span>
-              </a>
-            </section>
-          </article>
-        </div>
+            <a class="work-entry" href="https://trymodelmind.vercel.app" rel="noopener" target="_blank">
+              <span class="work-entry__meta tabular">04</span>
+              <span class="work-entry__title">Modelmind</span>
+              <span class="work-entry__description">A prediction game against leading AI models.</span>
+            </a>
+          </section>
+        </article>
       </main>
-
-      <footer>
-        <div>
-          <span class="small lowcontrast">Selected projects and product experiments.</span>
-          <span class="small lowcontrast tabular">2026</span>
-          <div></div>
-        </div>
-      </footer>
     </div>
 
     <script src="./script.js"></script>
