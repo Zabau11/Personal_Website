@@ -1,6 +1,42 @@
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const rootElement = document.documentElement;
 const shouldForceTopOnRestore = document.querySelector(".logo-button") instanceof HTMLAnchorElement;
+const themeToggle = document.querySelector("[data-theme-toggle]");
+const themeLabel = document.querySelector("[data-theme-label]");
+
+const getTheme = () => rootElement.dataset.theme === "light" ? "light" : "dark";
+
+const setTheme = (theme) => {
+  rootElement.dataset.theme = theme;
+
+  try {
+    localStorage.setItem("theme", theme);
+  } catch {
+    // Theme still works for the current page when storage is unavailable.
+  }
+
+  if (themeToggle instanceof HTMLButtonElement) {
+    const nextTheme = theme === "light" ? "dark" : "light";
+    themeToggle.setAttribute("aria-label", `Switch to ${nextTheme} mode`);
+  }
+
+  if (themeLabel instanceof HTMLElement) {
+    themeLabel.textContent = theme === "light" ? "Dark" : "Light";
+  }
+};
+
+if (!rootElement.dataset.theme) {
+  const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+  rootElement.dataset.theme = prefersLight ? "light" : "dark";
+}
+
+setTheme(getTheme());
+
+if (themeToggle instanceof HTMLButtonElement) {
+  themeToggle.addEventListener("click", () => {
+    setTheme(getTheme() === "light" ? "dark" : "light");
+  });
+}
 
 if (prefersReducedMotion) {
   document.documentElement.setAttribute("data-reduced-motion", "true");

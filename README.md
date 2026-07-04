@@ -15,6 +15,7 @@ Personal portfolio and writing site for [davidsabau](https://zabau.ceo), built a
 ## Project Structure
 
 - `index.html` - main homepage
+- `projects.html` - selected work index
 - `writing.html` - writing archive index
 - `2025.html`, `2026.html` - yearly writing entries
 - `styles.css` - global styles
