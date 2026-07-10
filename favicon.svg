@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Z favicon">
-  <rect width="64" height="64" rx="12" fill="#1a1a1a" />
+  <rect width="64" height="64" rx="12" fill="#11100f" />
   <text
     x="50%"
     y="50%"
-    fill="#d0d0d0"
+    fill="#f1eee8"
     font-family="Inter, system-ui, -apple-system, Segoe UI, Arial, sans-serif"
     font-size="40"
     font-weight="500"
