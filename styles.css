@@ -468,6 +468,29 @@ a {
   letter-spacing: 0;
 }
 
+.hero-title__letter {
+  display: inline-block;
+  backface-visibility: hidden;
+  transform-origin: 50% 50%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-title__letter {
+    animation: hero-letter-spin 720ms var(--ease-out-strong) both;
+    animation-delay: calc(var(--letter-index) * 70ms + 260ms);
+  }
+}
+
+@keyframes hero-letter-spin {
+  from {
+    transform: perspective(500px) rotateY(0deg);
+  }
+
+  to {
+    transform: perspective(500px) rotateY(360deg);
+  }
+}
+
 .listing-card h1 {
   max-width: 24ch;
   margin: 0;
