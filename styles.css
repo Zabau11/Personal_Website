@@ -519,6 +519,47 @@ a {
   color: color-mix(in oklab, var(--mono11) 92%, var(--fg));
 }
 
+.index-feature-link {
+  position: relative;
+  display: inline-block;
+  color: color-mix(in oklab, var(--accent-text) 66%, var(--mono12));
+  text-decoration: none;
+  transition:
+    color var(--transition-xx) ease,
+    transform var(--transition-med) var(--ease-out-strong);
+}
+
+.index-feature-link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0.18em;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+  transform: scaleX(0.35);
+  transform-origin: left center;
+  transition:
+    opacity var(--transition-med) ease,
+    transform var(--transition-xx) var(--ease-out-strong);
+}
+
+.index-feature-link:focus-visible {
+  color: color-mix(in oklab, var(--accent-text) 82%, var(--fg));
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.index-feature-link:focus-visible::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.index-feature-link:active {
+  transform: scale(0.98);
+}
+
 .muted {
   color: var(--mono9);
 }
@@ -1231,6 +1272,16 @@ footer > div > :first-child {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .index-feature-link,
+  .index-feature-link::after {
+    transition: none;
+  }
+
+  .index-feature-link:focus-visible,
+  .index-feature-link:active {
+    transform: none;
+  }
+
   .theme-toggle__icon {
     transition: none;
     transform: none;
@@ -1278,6 +1329,15 @@ footer > div > :first-child {
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .index-feature-link:hover {
+    color: color-mix(in oklab, var(--accent-text) 82%, var(--fg));
+  }
+
+  .index-feature-link:hover::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
   .logo-button:hover {
     color: var(--accent-text);
     border-color: color-mix(in oklab, var(--accent-border) 86%, var(--mono6));
@@ -1369,6 +1429,12 @@ footer > div > :first-child {
   .work-entry:hover,
   .work-entry:focus-visible {
     background: color-mix(in oklab, var(--mono3) 74%, var(--accent-surface));
+    transform: translateY(-1px);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .index-feature-link:hover {
     transform: translateY(-1px);
   }
 }

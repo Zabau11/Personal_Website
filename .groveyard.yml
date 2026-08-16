@@ -1,9 +1,0 @@
-worktreesRoot: .agent-worktrees
-branchPrefix: agent/
-allowDirtyBase: false
-autoCleanBranches:
-  - main
-  - master
-  - dev
-  - develop
-commands: {}
