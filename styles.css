@@ -297,26 +297,25 @@ a {
   justify-content: center;
   align-items: flex-end;
   width: 100%;
-  height: clamp(140px, 26vh, 220px);
-  padding-bottom: 22px;
+  height: clamp(180px, 32vh, 280px);
   overflow: hidden;
   pointer-events: none;
   user-select: none;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1;
   color: var(--mono9);
   mask-image: radial-gradient(
-    ellipse 52% 78% at 50% 82%,
-    #fff 18%,
-    rgba(255, 255, 255, 0.5) 48%,
-    rgba(255, 255, 255, 0) 72%
+    ellipse 92% 88% at 50% 100%,
+    #fff 28%,
+    rgba(255, 255, 255, 0.62) 58%,
+    rgba(255, 255, 255, 0) 82%
   );
   -webkit-mask-image: radial-gradient(
-    ellipse 52% 78% at 50% 82%,
-    #fff 18%,
-    rgba(255, 255, 255, 0.5) 48%,
-    rgba(255, 255, 255, 0) 72%
+    ellipse 92% 88% at 50% 100%,
+    #fff 28%,
+    rgba(255, 255, 255, 0.62) 58%,
+    rgba(255, 255, 255, 0) 82%
   );
 }
 
@@ -328,14 +327,15 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  flex: 0 0 0.62em;
+  flex: 0 0 0.5em;
+  transform: translateY(38%);
 }
 
 .code-drop__track {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.06em;
+  gap: 0;
 }
 
 .code-drop__glyph {
@@ -344,11 +344,10 @@ a {
 
 @media (max-width: 640px) {
   .code-drop {
-    font-size: 11px;
-    padding-bottom: 14px;
+    font-size: 10px;
   }
 
-  .code-drop__col:nth-child(3n) {
+  .code-drop__col:nth-child(4n) {
     display: none;
   }
 }
