@@ -325,7 +325,7 @@ a {
 
 .code-drop__col {
   position: relative;
-  flex: 0 0 1.05em;
+  flex: 0 0 0.92em;
   height: 100%;
 }
 
@@ -333,41 +333,38 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.32em;
+  gap: 0.18em;
   height: 100%;
   animation: code-fall 9s linear infinite;
 }
 
 .code-drop__glyph {
   display: block;
+  opacity: 0.12;
 }
 
-.code-drop__glyph:nth-child(1) {
-  opacity: 0.1;
+.code-drop__glyph:nth-last-child(6) {
+  opacity: 0.22;
 }
 
-.code-drop__glyph:nth-child(2) {
-  opacity: 0.18;
+.code-drop__glyph:nth-last-child(5) {
+  opacity: 0.34;
 }
 
-.code-drop__glyph:nth-child(3) {
-  opacity: 0.28;
+.code-drop__glyph:nth-last-child(4) {
+  opacity: 0.48;
 }
 
-.code-drop__glyph:nth-child(4) {
-  opacity: 0.42;
+.code-drop__glyph:nth-last-child(3) {
+  opacity: 0.64;
 }
 
-.code-drop__glyph:nth-child(5) {
-  opacity: 0.58;
+.code-drop__glyph:nth-last-child(2) {
+  opacity: 0.8;
 }
 
-.code-drop__glyph:nth-child(6) {
-  opacity: 0.76;
-}
-
-.code-drop__glyph:nth-child(7) {
-  opacity: 0.94;
+.code-drop__glyph:nth-last-child(1) {
+  opacity: 0.95;
 }
 
 .code-drop__col:nth-child(2n) .code-drop__track {
