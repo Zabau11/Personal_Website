@@ -294,8 +294,9 @@ a {
   bottom: 0;
   z-index: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: stretch;
+  width: 100%;
   height: clamp(168px, 34vh, 252px);
   overflow: hidden;
   pointer-events: none;
@@ -305,16 +306,16 @@ a {
   line-height: 1;
   color: var(--mono9);
   mask-image: radial-gradient(
-    ellipse 68% 86% at 50% 100%,
-    #fff 8%,
-    rgba(255, 255, 255, 0.55) 36%,
-    rgba(255, 255, 255, 0) 72%
+    ellipse 118% 88% at 50% 100%,
+    #fff 12%,
+    rgba(255, 255, 255, 0.62) 42%,
+    rgba(255, 255, 255, 0) 78%
   );
   -webkit-mask-image: radial-gradient(
-    ellipse 68% 86% at 50% 100%,
-    #fff 8%,
-    rgba(255, 255, 255, 0.55) 36%,
-    rgba(255, 255, 255, 0) 72%
+    ellipse 118% 88% at 50% 100%,
+    #fff 12%,
+    rgba(255, 255, 255, 0.62) 42%,
+    rgba(255, 255, 255, 0) 78%
   );
 }
 
@@ -324,7 +325,7 @@ a {
 
 .code-drop__col {
   position: relative;
-  flex: 0 0 1.35em;
+  flex: 0 0 1.05em;
   height: 100%;
 }
 
@@ -342,19 +343,31 @@ a {
 }
 
 .code-drop__glyph:nth-child(1) {
-  opacity: 0.16;
+  opacity: 0.1;
 }
 
 .code-drop__glyph:nth-child(2) {
-  opacity: 0.34;
+  opacity: 0.18;
 }
 
 .code-drop__glyph:nth-child(3) {
-  opacity: 0.58;
+  opacity: 0.28;
 }
 
 .code-drop__glyph:nth-child(4) {
-  opacity: 0.92;
+  opacity: 0.42;
+}
+
+.code-drop__glyph:nth-child(5) {
+  opacity: 0.58;
+}
+
+.code-drop__glyph:nth-child(6) {
+  opacity: 0.76;
+}
+
+.code-drop__glyph:nth-child(7) {
+  opacity: 0.94;
 }
 
 .code-drop__col:nth-child(2n) .code-drop__track {
