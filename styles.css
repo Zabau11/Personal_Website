@@ -522,34 +522,37 @@ a {
 .index-feature-link {
   position: relative;
   display: inline-block;
-  isolation: isolate;
   color: color-mix(in oklab, var(--accent-text) 66%, var(--mono12));
   text-decoration: none;
   transition:
-    color var(--transition-xx) ease,
+    color var(--transition-xx) var(--ease-out-strong),
     transform var(--transition-med) var(--ease-out-strong);
 }
 
 .index-feature-link::after {
   content: "";
   position: absolute;
-  z-index: -1;
-  inset: 0.12em -0.18em -0.06em;
-  border-radius: 2px;
-  background: color-mix(in oklab, var(--accent-text) 22%, transparent);
-  transform: scaleX(0);
-  transform-origin: center;
+  right: 0;
+  bottom: 0.08em;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transform: translateY(3px);
   pointer-events: none;
-  transition: transform var(--transition-xx) var(--ease-out-strong);
+  transition:
+    opacity var(--transition-med) var(--ease-out-strong),
+    transform var(--transition-xx) var(--ease-out-strong);
 }
 
 .index-feature-link:focus-visible {
-  color: color-mix(in oklab, var(--accent-text) 88%, var(--fg));
+  color: color-mix(in oklab, var(--accent-text) 90%, var(--fg));
   outline: none;
 }
 
 .index-feature-link:focus-visible::after {
-  transform: scaleX(1);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .index-feature-link:active {
@@ -1273,6 +1276,10 @@ footer > div > :first-child {
     transition: none;
   }
 
+  .index-feature-link::after {
+    transform: none;
+  }
+
   .index-feature-link:focus-visible,
   .index-feature-link:active {
     transform: none;
@@ -1326,11 +1333,12 @@ footer > div > :first-child {
 
 @media (hover: hover) and (pointer: fine) {
   .index-feature-link:hover {
-    color: color-mix(in oklab, var(--accent-text) 88%, var(--fg));
+    color: color-mix(in oklab, var(--accent-text) 90%, var(--fg));
   }
 
   .index-feature-link:hover::after {
-    transform: scaleX(1);
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .logo-button:hover {
