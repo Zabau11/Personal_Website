@@ -1523,6 +1523,11 @@ footer > div > :first-child {
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .tty-now a:hover {
+    color: color-mix(in oklab, var(--accent-text) 90%, var(--fg));
+    text-decoration: underline;
+  }
+
   .index-feature-link:hover {
     color: color-mix(in oklab, var(--accent-text) 90%, var(--fg));
   }
