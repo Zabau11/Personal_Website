@@ -235,7 +235,7 @@ const startCodeDrop = () => {
   const canvas = document.createElement("canvas");
   canvas.className = "code-drop";
   canvas.setAttribute("aria-hidden", "true");
-  document.body.append(canvas);
+  document.documentElement.append(canvas);
 
   const context = canvas.getContext("2d", { alpha: true });
 
@@ -248,7 +248,7 @@ const startCodeDrop = () => {
   let width = 0;
   let height = 0;
   let pixelRatio = 1;
-  let color = "#aebfd1";
+  let color = "#cec6bb";
   let frame = 0;
   let lastTime = 0;
 
@@ -256,32 +256,33 @@ const startCodeDrop = () => {
 
   const readColor = () => {
     const styles = getComputedStyle(rootElement);
-    const nextColor = styles.getPropertyValue("--dev-blue").trim();
-    color = nextColor || (getTheme() === "light" ? "#4c6376" : "#aebfd1");
+    const token = getTheme() === "light" ? "--mono9" : "--mono11";
+    const nextColor = styles.getPropertyValue(token).trim();
+    color = nextColor || (getTheme() === "light" ? "#665c52" : "#cec6bb");
   };
 
   const resetDrop = (drop, spawnAnywhere) => {
     const xNorm = drop.column / Math.max(drop.columnCount - 1, 1);
     drop.glyph = randomItem(CODE_DROP_GLYPHS);
-    drop.speed = 10 + Math.random() * 18;
-    drop.y = spawnAnywhere ? Math.random() * height : -12 - Math.random() * 48;
-    drop.centerWeight = Math.exp(-((xNorm - 0.5) * 2.15) ** 2);
+    drop.speed = 16 + Math.random() * 28;
+    drop.y = spawnAnywhere ? Math.random() * height : -16 - Math.random() * 64;
+    drop.centerWeight = Math.exp(-((xNorm - 0.5) * 1.85) ** 2);
   };
 
   const rebuildDrops = () => {
     drops.length = 0;
-    const columnWidth = 18;
-    const columnCount = Math.max(8, Math.floor(width / columnWidth));
+    const columnWidth = 15;
+    const columnCount = Math.max(12, Math.floor(width / columnWidth));
 
     for (let column = 0; column < columnCount; column += 1) {
       const xNorm = column / Math.max(columnCount - 1, 1);
-      const centerWeight = Math.exp(-((xNorm - 0.5) * 2.15) ** 2);
+      const centerWeight = Math.exp(-((xNorm - 0.5) * 1.85) ** 2);
 
-      if (centerWeight < 0.12 && Math.random() > 0.22) {
+      if (centerWeight < 0.08) {
         continue;
       }
 
-      const stack = centerWeight > 0.55 ? 2 : 1;
+      const stack = centerWeight > 0.45 ? 3 : centerWeight > 0.22 ? 2 : 1;
 
       for (let index = 0; index < stack; index += 1) {
         const drop = {
@@ -290,7 +291,7 @@ const startCodeDrop = () => {
           x: (column + 0.5) * (width / columnCount),
           y: 0,
           glyph: "@",
-          speed: 16,
+          speed: 24,
           centerWeight,
         };
         resetDrop(drop, true);
@@ -308,7 +309,7 @@ const startCodeDrop = () => {
     canvas.width = Math.round(width * pixelRatio);
     canvas.height = Math.round(height * pixelRatio);
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    context.font = '13px "American Typewriter", "Courier New", Courier, monospace';
+    context.font = '16px "Courier New", Courier, "American Typewriter", monospace';
     context.textAlign = "center";
     context.textBaseline = "middle";
     rebuildDrops();
@@ -325,15 +326,15 @@ const startCodeDrop = () => {
       if (!prefersReducedMotion) {
         drop.y += drop.speed * delta;
 
-        if (drop.y > height + 14) {
+        if (drop.y > height + 18) {
           resetDrop(drop, false);
         }
       }
 
       const fall = Math.max(0, Math.min(1, drop.y / height));
-      const opacity = fall * drop.centerWeight * 0.72;
+      const opacity = fall * Math.max(0.35, drop.centerWeight) * 0.92;
 
-      if (opacity < 0.02) {
+      if (opacity < 0.04) {
         continue;
       }
 
@@ -372,7 +373,10 @@ const startCodeDrop = () => {
 
   readColor();
   resize();
-  play();
+  window.requestAnimationFrame(() => {
+    resize();
+    play();
+  });
 
   window.addEventListener("resize", () => {
     pause();
