@@ -292,72 +292,120 @@ a {
   left: calc(-1 * var(--body-margin-left));
   right: calc(-1 * var(--body-margin-right));
   bottom: 0;
-  z-index: 2;
+  z-index: 0;
   display: flex;
   justify-content: center;
   align-items: stretch;
-  height: 48vh;
-  min-height: 220px;
+  height: clamp(168px, 34vh, 252px);
   overflow: hidden;
   pointer-events: none;
   user-select: none;
   font-family: var(--font-mono);
-  font-size: 18px;
+  font-size: 13px;
   line-height: 1;
-  color: var(--mono12);
+  color: var(--mono9);
+  mask-image: radial-gradient(
+    ellipse 68% 86% at 50% 100%,
+    #fff 8%,
+    rgba(255, 255, 255, 0.55) 36%,
+    rgba(255, 255, 255, 0) 72%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 68% 86% at 50% 100%,
+    #fff 8%,
+    rgba(255, 255, 255, 0.55) 36%,
+    rgba(255, 255, 255, 0) 72%
+  );
+}
+
+:root[data-theme="light"] .code-drop {
+  color: var(--mono8);
 }
 
 .code-drop__col {
   position: relative;
-  flex: 0 0 1.1em;
+  flex: 0 0 1.35em;
   height: 100%;
 }
 
+.code-drop__track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.32em;
+  height: 100%;
+  animation: code-fall 9s linear infinite;
+}
+
 .code-drop__glyph {
-  position: absolute;
-  left: 0;
-  top: 0;
-  animation: code-fall 4.8s linear infinite;
+  display: block;
 }
 
-.code-drop__col:nth-child(odd) .code-drop__glyph {
-  animation-duration: 3.8s;
-  animation-delay: -1.2s;
+.code-drop__glyph:nth-child(1) {
+  opacity: 0.16;
 }
 
-.code-drop__col:nth-child(3n) .code-drop__glyph {
-  animation-duration: 5.7s;
-  animation-delay: -2.6s;
+.code-drop__glyph:nth-child(2) {
+  opacity: 0.34;
 }
 
-.code-drop__col:nth-child(4n) .code-drop__glyph {
-  animation-delay: -0.5s;
+.code-drop__glyph:nth-child(3) {
+  opacity: 0.58;
 }
 
-.code-drop__col:nth-child(5n) .code-drop__glyph {
-  animation-duration: 4.1s;
-  animation-delay: -3.4s;
+.code-drop__glyph:nth-child(4) {
+  opacity: 0.92;
+}
+
+.code-drop__col:nth-child(2n) .code-drop__track {
+  animation-duration: 7.6s;
+  animation-delay: -3.1s;
+}
+
+.code-drop__col:nth-child(3n) .code-drop__track {
+  animation-duration: 10.8s;
+  animation-delay: -6.4s;
+}
+
+.code-drop__col:nth-child(4n) .code-drop__track {
+  animation-delay: -1.7s;
+}
+
+.code-drop__col:nth-child(5n) .code-drop__track {
+  animation-duration: 8.2s;
+  animation-delay: -4.9s;
+}
+
+.code-drop__col:nth-child(7n) .code-drop__track {
+  animation-duration: 12s;
+  animation-delay: -2.3s;
+}
+
+.code-drop__col:nth-child(11n) .code-drop__track {
+  animation-duration: 6.9s;
+  animation-delay: -5.6s;
 }
 
 @keyframes code-fall {
-  0% {
-    transform: translateY(-1.2em);
-    opacity: 0;
+  from {
+    transform: translate3d(0, -18%, 0);
   }
 
-  100% {
-    transform: translateY(48vh);
-    opacity: 1;
+  to {
+    transform: translate3d(0, 108%, 0);
+  }
+}
+
+@media (max-width: 640px) {
+  .code-drop__col:nth-child(2n) {
+    display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .code-drop__glyph {
+  .code-drop__track {
     animation: none;
-    top: auto;
-    bottom: 0.6em;
-    opacity: 0.7;
-    transform: none;
+    transform: translate3d(0, 56%, 0);
   }
 }
 
@@ -484,6 +532,8 @@ a {
 }
 
 .index-card {
+  position: relative;
+  z-index: 1;
   width: min(560px, calc(100vw - 2 * var(--body-margin-left)));
   margin-left: clamp(44px, 6vw, 118px);
   color: color-mix(in oklab, var(--mono12) 86%, var(--fg));
@@ -498,6 +548,8 @@ a {
 }
 
 .listing-card {
+  position: relative;
+  z-index: 1;
   width: min(680px, calc(100vw - 2 * var(--body-margin-left)));
   margin-left: clamp(44px, 6vw, 118px);
   color: color-mix(in oklab, var(--mono12) 86%, var(--fg));
