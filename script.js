@@ -232,177 +232,46 @@ projectsScrollers.forEach((scroller) => {
 const CODE_DROP_GLYPHS = ["@", "#", "%", "*", "+", "=", "-", ":"];
 
 const startCodeDrop = () => {
-  const canvas = document.createElement("canvas");
-  canvas.className = "code-drop";
-  canvas.setAttribute("aria-hidden", "true");
-  document.documentElement.append(canvas);
+  const root = document.querySelector(".code-drop");
 
-  const context = canvas.getContext("2d", { alpha: true });
-
-  if (!(context instanceof CanvasRenderingContext2D)) {
-    canvas.remove();
+  if (!(root instanceof HTMLElement)) {
     return;
   }
 
-  const drops = [];
-  let width = 0;
-  let height = 0;
-  let pixelRatio = 1;
-  let color = "#cec6bb";
-  let frame = 0;
-  let lastTime = 0;
+  const columnCount = Math.max(18, Math.min(56, Math.floor(window.innerWidth / 18)));
+  const fragment = document.createDocumentFragment();
 
-  const randomItem = (items) => items[Math.floor(Math.random() * items.length)];
+  for (let column = 0; column < columnCount; column += 1) {
+    const xNorm = column / Math.max(columnCount - 1, 1);
+    const centerWeight = Math.exp(-((xNorm - 0.5) * 1.7) ** 2);
 
-  const readColor = () => {
-    const styles = getComputedStyle(rootElement);
-    const token = getTheme() === "light" ? "--mono9" : "--mono11";
-    const nextColor = styles.getPropertyValue(token).trim();
-    color = nextColor || (getTheme() === "light" ? "#665c52" : "#cec6bb");
-  };
-
-  const resetDrop = (drop, spawnAnywhere) => {
-    const xNorm = drop.column / Math.max(drop.columnCount - 1, 1);
-    drop.glyph = randomItem(CODE_DROP_GLYPHS);
-    drop.speed = 16 + Math.random() * 28;
-    drop.y = spawnAnywhere ? Math.random() * height : -16 - Math.random() * 64;
-    drop.centerWeight = Math.exp(-((xNorm - 0.5) * 1.85) ** 2);
-  };
-
-  const rebuildDrops = () => {
-    drops.length = 0;
-    const columnWidth = 15;
-    const columnCount = Math.max(12, Math.floor(width / columnWidth));
-
-    for (let column = 0; column < columnCount; column += 1) {
-      const xNorm = column / Math.max(columnCount - 1, 1);
-      const centerWeight = Math.exp(-((xNorm - 0.5) * 1.85) ** 2);
-
-      if (centerWeight < 0.08) {
-        continue;
-      }
-
-      const stack = centerWeight > 0.45 ? 3 : centerWeight > 0.22 ? 2 : 1;
-
-      for (let index = 0; index < stack; index += 1) {
-        const drop = {
-          column,
-          columnCount,
-          x: (column + 0.5) * (width / columnCount),
-          y: 0,
-          glyph: "@",
-          speed: 24,
-          centerWeight,
-        };
-        resetDrop(drop, true);
-        drops.push(drop);
-      }
-    }
-  };
-
-  const resize = () => {
-    const nextPixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-    const bounds = canvas.getBoundingClientRect();
-    width = Math.max(1, Math.round(bounds.width));
-    height = Math.max(1, Math.round(bounds.height));
-    pixelRatio = nextPixelRatio;
-    canvas.width = Math.round(width * pixelRatio);
-    canvas.height = Math.round(height * pixelRatio);
-    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    context.font = '16px "Courier New", Courier, "American Typewriter", monospace';
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    rebuildDrops();
-  };
-
-  const draw = (time) => {
-    const delta = lastTime === 0 ? 0.016 : Math.min(0.05, (time - lastTime) / 1000);
-    lastTime = time;
-
-    context.clearRect(0, 0, width, height);
-    context.fillStyle = color;
-
-    for (const drop of drops) {
-      if (!prefersReducedMotion) {
-        drop.y += drop.speed * delta;
-
-        if (drop.y > height + 18) {
-          resetDrop(drop, false);
-        }
-      }
-
-      const fall = Math.max(0, Math.min(1, drop.y / height));
-      const opacity = fall * Math.max(0.35, drop.centerWeight) * 0.92;
-
-      if (opacity < 0.04) {
-        continue;
-      }
-
-      context.globalAlpha = opacity;
-      context.fillText(drop.glyph, drop.x, drop.y);
+    if (centerWeight < 0.12) {
+      continue;
     }
 
-    context.globalAlpha = 1;
+    const stack = centerWeight > 0.55 ? 2 : 1;
 
-    if (!prefersReducedMotion && !document.hidden) {
-      frame = window.requestAnimationFrame(draw);
+    for (let index = 0; index < stack; index += 1) {
+      const col = document.createElement("span");
+      col.className = "code-drop__col";
+      col.style.opacity = String(0.45 + centerWeight * 0.55);
+
+      const glyph = document.createElement("span");
+      glyph.className = "code-drop__glyph";
+      glyph.textContent = CODE_DROP_GLYPHS[Math.floor(Math.random() * CODE_DROP_GLYPHS.length)];
+      glyph.style.setProperty("--dur", `${3.4 + Math.random() * 3.8}s`);
+      glyph.style.setProperty("--delay", `${(-Math.random() * 6).toFixed(2)}s`);
+      col.append(glyph);
+      fragment.append(col);
     }
-  };
+  }
 
-  const play = () => {
-    if (prefersReducedMotion || document.hidden) {
-      lastTime = 0;
-      draw(performance.now());
-      return;
-    }
-
-    if (frame > 0) {
-      return;
-    }
-
-    lastTime = 0;
-    frame = window.requestAnimationFrame(draw);
-  };
-
-  const pause = () => {
-    if (frame > 0) {
-      window.cancelAnimationFrame(frame);
-      frame = 0;
-    }
-  };
-
-  readColor();
-  resize();
-  window.requestAnimationFrame(() => {
-    resize();
-    play();
-  });
-
-  window.addEventListener("resize", () => {
-    pause();
-    resize();
-    play();
-  });
-
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      pause();
-      return;
-    }
-
-    play();
-  });
-
-  const themeObserver = new MutationObserver(() => {
-    readColor();
-
-    if (prefersReducedMotion) {
-      draw(performance.now());
-    }
-  });
-
-  themeObserver.observe(rootElement, { attributes: true, attributeFilter: ["data-theme"] });
+  root.replaceChildren(fragment);
 };
 
 startCodeDrop();
+window.addEventListener("resize", () => {
+  window.clearTimeout(startCodeDrop.resizeTimer);
+  startCodeDrop.resizeTimer = window.setTimeout(startCodeDrop, 180);
+});
 
