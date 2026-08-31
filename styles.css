@@ -631,6 +631,35 @@ h1.tty-comment {
   letter-spacing: 0;
 }
 
+.tty-file {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 68ch;
+  color: color-mix(in oklab, var(--mono11) 88%, var(--fg));
+  font: 400 14px / 1.55 var(--font-ui);
+  counter-reset: cat;
+}
+
+.tty-file li {
+  display: grid;
+  grid-template-columns: 2ch minmax(0, 1fr);
+  column-gap: 1.25ch;
+  align-items: baseline;
+  counter-increment: cat;
+}
+
+.tty-file li::before {
+  content: counter(cat);
+  color: var(--mono7);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.tty-hash {
+  color: var(--mono7);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tty-cmd--live::after {
     animation: none;
