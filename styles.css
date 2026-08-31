@@ -631,33 +631,34 @@ h1.tty-comment {
   letter-spacing: 0;
 }
 
-.tty-file {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-width: 68ch;
-  color: color-mix(in oklab, var(--mono11) 88%, var(--fg));
-  font: 400 14px / 1.55 var(--font-ui);
-  counter-reset: cat;
-}
-
-.tty-file li {
+.tty-now {
   display: grid;
-  grid-template-columns: 2ch minmax(0, 1fr);
-  column-gap: 1.25ch;
-  align-items: baseline;
-  counter-increment: cat;
+  gap: 0;
+  margin: 0;
+  max-width: 68ch;
+  color: color-mix(in oklab, var(--mono12) 90%, var(--fg));
+  font: 400 14px / 1.55 var(--font-ui);
 }
 
-.tty-file li::before {
-  content: counter(cat);
-  color: var(--mono7);
-  font-variant-numeric: tabular-nums;
-  text-align: right;
+.tty-now p {
+  margin: 0;
 }
 
-.tty-hash {
-  color: var(--mono7);
+.tty-now a {
+  color: color-mix(in oklab, var(--accent-text) 70%, var(--mono12));
+  text-decoration: none;
+  text-underline-offset: 3px;
+  transition: color 160ms var(--ease-out-strong);
+}
+
+.tty-now a:active,
+.tty-now a:focus-visible {
+  color: color-mix(in oklab, var(--accent-text) 90%, var(--fg));
+}
+
+.tty-now a:focus-visible {
+  outline: none;
+  text-decoration: underline;
 }
 
 @media (prefers-reduced-motion: reduce) {
