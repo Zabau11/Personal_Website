@@ -197,7 +197,6 @@
 html {
   font-size: 16px;
   height: 100%;
-  max-height: 100%;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   background: var(--bg);
@@ -207,7 +206,6 @@ html {
 body {
   margin: 0;
   height: 100%;
-  max-height: 100%;
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
@@ -276,17 +274,16 @@ a {
 
 .tty,
 .site-root {
-  position: relative;
+  position: fixed;
+  inset: 0;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
-  max-height: 100%;
-  min-height: 0;
+  width: auto;
+  height: auto;
   margin: 0;
   padding: 0;
-  border: 1px solid color-mix(in oklab, var(--mono6) 88%, var(--accent-border));
+  border: 0;
   overflow: hidden;
   background: var(--bg);
 }
@@ -399,11 +396,10 @@ a {
   justify-content: space-between;
   gap: 16px;
   flex: none;
-  padding: 8px max(20px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom))
-    max(20px, env(safe-area-inset-left));
+  padding: 10px 24px calc(14px + env(safe-area-inset-bottom)) 24px;
   border-top: 1px solid color-mix(in oklab, var(--mono5) 90%, var(--accent-border));
-  color: var(--mono8);
-  font: 400 11px / 1.2 var(--font-ui);
+  color: var(--mono9);
+  font: 400 12px / 1.2 var(--font-ui);
   letter-spacing: 0.04em;
   background: var(--bg);
   position: relative;
@@ -422,40 +418,39 @@ a {
   z-index: 0;
   width: max-content;
   margin: 0;
-  padding: 0 0 4px;
+  padding: 0;
   overflow: hidden;
-  transform: translate(-50%, 32%);
+  transform: translate(-50%, 12%);
   pointer-events: none;
   user-select: none;
-  font: 10px / 1.05 var(--font-mono);
-  letter-spacing: 0.08em;
-  color: color-mix(in oklab, var(--mono8) 62%, var(--accent-text));
+  font: 12px / 1 var(--font-mono);
+  letter-spacing: 0.04em;
+  color: color-mix(in oklab, var(--accent-text) 72%, var(--mono11));
   white-space: pre;
   mask-image: radial-gradient(
-    ellipse 96% 82% at 50% 100%,
-    #fff 4%,
-    rgba(255, 255, 255, 0.5) 28%,
-    rgba(255, 255, 255, 0.14) 52%,
-    rgba(255, 255, 255, 0) 74%
+    ellipse 92% 88% at 50% 100%,
+    #fff 22%,
+    rgba(255, 255, 255, 0.82) 48%,
+    rgba(255, 255, 255, 0.38) 68%,
+    rgba(255, 255, 255, 0) 86%
   );
   -webkit-mask-image: radial-gradient(
-    ellipse 96% 82% at 50% 100%,
-    #fff 4%,
-    rgba(255, 255, 255, 0.5) 28%,
-    rgba(255, 255, 255, 0.14) 52%,
-    rgba(255, 255, 255, 0) 74%
+    ellipse 92% 88% at 50% 100%,
+    #fff 22%,
+    rgba(255, 255, 255, 0.82) 48%,
+    rgba(255, 255, 255, 0.38) 68%,
+    rgba(255, 255, 255, 0) 86%
   );
 }
 
 :root[data-theme="light"] .code-drop {
-  color: color-mix(in oklab, var(--mono8) 78%, var(--accent-text));
+  color: color-mix(in oklab, var(--accent-text) 58%, var(--mono8));
 }
 
 @media (max-width: 640px) {
   .code-drop {
-    font-size: 8px;
-    letter-spacing: 0.04em;
-    transform: translate(-50%, 36%);
+    font-size: 10px;
+    transform: translate(-50%, 16%);
   }
 }
 
@@ -1581,14 +1576,6 @@ footer > div > :first-child {
 
   .tty-split {
     grid-template-columns: 1fr;
-  }
-
-  .tty,
-  .site-root {
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-    margin: 0;
   }
 
   .tty-tree {
