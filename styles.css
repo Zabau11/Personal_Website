@@ -430,37 +430,65 @@ footer.tty-status,
   margin: 0;
   padding: 0;
   overflow: hidden;
-  transform: translate(-50%, 12%);
+  transform: translate(-50%, 6%);
   pointer-events: none;
   user-select: none;
-  font: 12px / 1 var(--font-mono);
-  letter-spacing: 0.04em;
-  color: color-mix(in oklab, var(--accent-text) 72%, var(--mono11));
+  font: 11px / 1 var(--font-mono);
+  letter-spacing: 0.05em;
+  color: color-mix(in oklab, var(--mono8) 62%, var(--accent-text));
   white-space: pre;
-  mask-image: radial-gradient(
-    ellipse 92% 88% at 50% 100%,
-    #fff 22%,
-    rgba(255, 255, 255, 0.82) 48%,
-    rgba(255, 255, 255, 0.38) 68%,
-    rgba(255, 255, 255, 0) 86%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 92% 88% at 50% 100%,
-    #fff 22%,
-    rgba(255, 255, 255, 0.82) 48%,
-    rgba(255, 255, 255, 0.38) 68%,
-    rgba(255, 255, 255, 0) 86%
-  );
+  -webkit-mask-image:
+    linear-gradient(
+      to top,
+      #fff 0%,
+      rgba(255, 255, 255, 0.72) 22%,
+      rgba(255, 255, 255, 0.28) 48%,
+      rgba(255, 255, 255, 0.06) 70%,
+      rgba(255, 255, 255, 0) 88%
+    ),
+    linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.25) 10%,
+      #fff 24%,
+      #fff 76%,
+      rgba(255, 255, 255, 0.25) 90%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(
+      to top,
+      #fff 0%,
+      rgba(255, 255, 255, 0.72) 22%,
+      rgba(255, 255, 255, 0.28) 48%,
+      rgba(255, 255, 255, 0.06) 70%,
+      rgba(255, 255, 255, 0) 88%
+    ),
+    linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.25) 10%,
+      #fff 24%,
+      #fff 76%,
+      rgba(255, 255, 255, 0.25) 90%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  mask-composite: intersect;
 }
 
 :root[data-theme="light"] .code-drop {
-  color: color-mix(in oklab, var(--accent-text) 58%, var(--mono8));
+  color: color-mix(in oklab, var(--mono8) 70%, var(--accent-text));
 }
 
 @media (max-width: 640px) {
   .code-drop {
-    font-size: 10px;
-    transform: translate(-50%, 16%);
+    font-size: 9px;
+    transform: translate(-50%, 10%);
   }
 }
 
