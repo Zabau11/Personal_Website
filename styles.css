@@ -205,9 +205,7 @@ html {
 body {
   margin: 0;
   min-height: 100%;
-  position: relative;
-  z-index: 1;
-  background: transparent;
+  background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
   font-kerning: normal;
@@ -218,32 +216,6 @@ body {
   touch-action: manipulation;
   overflow-x: hidden;
   overflow-y: auto;
-}
-
-html::before {
-  content: "";
-  position: fixed;
-  inset: -30%;
-  width: 160%;
-  height: 160%;
-  pointer-events: none;
-  z-index: 0;
-  background: radial-gradient(
-    ellipse 55% 45% at 32% 22%,
-    color-mix(in oklab, var(--gray12) 18%, transparent) 0%,
-    color-mix(in oklab, var(--gray12) 6%, transparent) 42%,
-    transparent 70%
-  );
-  animation: light-drift 36s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
-}
-
-:root[data-theme="light"]::before {
-  background: radial-gradient(
-    ellipse 55% 45% at 32% 22%,
-    color-mix(in oklab, var(--bg) 62%, #fbf8f2) 0%,
-    color-mix(in oklab, var(--sand-surface) 35%, transparent) 48%,
-    transparent 72%
-  );
 }
 
 a {
@@ -303,6 +275,8 @@ a {
 }
 
 .site-root {
+  position: relative;
+  z-index: 1;
   min-height: 100%;
   padding-left: var(--body-margin-left);
   padding-right: var(--body-margin-right);
@@ -311,6 +285,20 @@ a {
 
 .home-root {
   min-height: 100svh;
+}
+
+.code-drop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  width: 100%;
+  height: clamp(132px, 24vh, 240px);
+  pointer-events: none;
+  user-select: none;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 42%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 42%);
 }
 
 .site-chrome {
@@ -1300,10 +1288,6 @@ footer > div > :first-child {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html::before {
-    animation: none;
-  }
-
   .index-feature-link,
   .index-feature-link::after {
     transition: none;
@@ -1325,16 +1309,6 @@ footer > div > :first-child {
 
   .theme-toggle:active .theme-toggle__icon {
     transform: none;
-  }
-}
-
-@keyframes light-drift {
-  from {
-    transform: translate3d(-5%, -4%, 0);
-  }
-
-  to {
-    transform: translate3d(7%, 6%, 0);
   }
 }
 

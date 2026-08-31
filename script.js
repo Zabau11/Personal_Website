@@ -228,3 +228,177 @@ projectsScrollers.forEach((scroller) => {
     bindMobileScrollerBlur(scroller);
   }
 });
+
+const CODE_DROP_GLYPHS = ["@", "#", "%", "*", "+", "=", "-", ":"];
+
+const startCodeDrop = () => {
+  const canvas = document.createElement("canvas");
+  canvas.className = "code-drop";
+  canvas.setAttribute("aria-hidden", "true");
+  document.body.append(canvas);
+
+  const context = canvas.getContext("2d", { alpha: true });
+
+  if (!(context instanceof CanvasRenderingContext2D)) {
+    canvas.remove();
+    return;
+  }
+
+  const drops = [];
+  let width = 0;
+  let height = 0;
+  let pixelRatio = 1;
+  let color = "#aebfd1";
+  let frame = 0;
+  let lastTime = 0;
+
+  const randomItem = (items) => items[Math.floor(Math.random() * items.length)];
+
+  const readColor = () => {
+    const styles = getComputedStyle(rootElement);
+    const nextColor = styles.getPropertyValue("--dev-blue").trim();
+    color = nextColor || (getTheme() === "light" ? "#4c6376" : "#aebfd1");
+  };
+
+  const resetDrop = (drop, spawnAnywhere) => {
+    const xNorm = drop.column / Math.max(drop.columnCount - 1, 1);
+    drop.glyph = randomItem(CODE_DROP_GLYPHS);
+    drop.speed = 10 + Math.random() * 18;
+    drop.y = spawnAnywhere ? Math.random() * height : -12 - Math.random() * 48;
+    drop.centerWeight = Math.exp(-((xNorm - 0.5) * 2.15) ** 2);
+  };
+
+  const rebuildDrops = () => {
+    drops.length = 0;
+    const columnWidth = 18;
+    const columnCount = Math.max(8, Math.floor(width / columnWidth));
+
+    for (let column = 0; column < columnCount; column += 1) {
+      const xNorm = column / Math.max(columnCount - 1, 1);
+      const centerWeight = Math.exp(-((xNorm - 0.5) * 2.15) ** 2);
+
+      if (centerWeight < 0.12 && Math.random() > 0.22) {
+        continue;
+      }
+
+      const stack = centerWeight > 0.55 ? 2 : 1;
+
+      for (let index = 0; index < stack; index += 1) {
+        const drop = {
+          column,
+          columnCount,
+          x: (column + 0.5) * (width / columnCount),
+          y: 0,
+          glyph: "@",
+          speed: 16,
+          centerWeight,
+        };
+        resetDrop(drop, true);
+        drops.push(drop);
+      }
+    }
+  };
+
+  const resize = () => {
+    const nextPixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    const bounds = canvas.getBoundingClientRect();
+    width = Math.max(1, Math.round(bounds.width));
+    height = Math.max(1, Math.round(bounds.height));
+    pixelRatio = nextPixelRatio;
+    canvas.width = Math.round(width * pixelRatio);
+    canvas.height = Math.round(height * pixelRatio);
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    context.font = '13px "American Typewriter", "Courier New", Courier, monospace';
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    rebuildDrops();
+  };
+
+  const draw = (time) => {
+    const delta = lastTime === 0 ? 0.016 : Math.min(0.05, (time - lastTime) / 1000);
+    lastTime = time;
+
+    context.clearRect(0, 0, width, height);
+    context.fillStyle = color;
+
+    for (const drop of drops) {
+      if (!prefersReducedMotion) {
+        drop.y += drop.speed * delta;
+
+        if (drop.y > height + 14) {
+          resetDrop(drop, false);
+        }
+      }
+
+      const fall = Math.max(0, Math.min(1, drop.y / height));
+      const opacity = fall * drop.centerWeight * 0.72;
+
+      if (opacity < 0.02) {
+        continue;
+      }
+
+      context.globalAlpha = opacity;
+      context.fillText(drop.glyph, drop.x, drop.y);
+    }
+
+    context.globalAlpha = 1;
+
+    if (!prefersReducedMotion && !document.hidden) {
+      frame = window.requestAnimationFrame(draw);
+    }
+  };
+
+  const play = () => {
+    if (prefersReducedMotion || document.hidden) {
+      lastTime = 0;
+      draw(performance.now());
+      return;
+    }
+
+    if (frame > 0) {
+      return;
+    }
+
+    lastTime = 0;
+    frame = window.requestAnimationFrame(draw);
+  };
+
+  const pause = () => {
+    if (frame > 0) {
+      window.cancelAnimationFrame(frame);
+      frame = 0;
+    }
+  };
+
+  readColor();
+  resize();
+  play();
+
+  window.addEventListener("resize", () => {
+    pause();
+    resize();
+    play();
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      pause();
+      return;
+    }
+
+    play();
+  });
+
+  const themeObserver = new MutationObserver(() => {
+    readColor();
+
+    if (prefersReducedMotion) {
+      draw(performance.now());
+    }
+  });
+
+  themeObserver.observe(rootElement, { attributes: true, attributeFilter: ["data-theme"] });
+};
+
+startCodeDrop();
+
