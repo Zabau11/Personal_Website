@@ -199,13 +199,17 @@ html {
   height: 100%;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
-  background: var(--bg);
+  background: color-mix(in oklab, var(--bg) 78%, black);
+}
+
+:root[data-theme="light"] html {
+  background: color-mix(in oklab, var(--bg) 82%, var(--mono6));
 }
 
 body {
   margin: 0;
   min-height: 100%;
-  background: var(--bg);
+  background: inherit;
   color: var(--fg);
   font-family: var(--font-sans);
   font-kerning: normal;
@@ -288,12 +292,15 @@ a {
 }
 
 .home-page {
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   height: 100svh;
 }
 
 .home-page .tty {
-  height: calc(100svh - 16px);
+  flex: 1;
+  height: auto;
   min-height: 0;
   overflow: hidden;
 }
@@ -304,16 +311,21 @@ a {
   justify-content: space-between;
   gap: 16px;
   flex: none;
-  padding: 8px 14px;
+  padding: 9px 16px;
   border-bottom: 1px solid color-mix(in oklab, var(--mono5) 90%, var(--accent-border));
   background: var(--bg);
   z-index: 4;
 }
 
+.subpage-root .tty-bar {
+  position: sticky;
+  top: 0;
+}
+
 .tty-bar__id {
   color: color-mix(in oklab, var(--mono12) 92%, var(--fg));
   font: 500 13px / 1.2 var(--font-ui);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   text-decoration: none;
 }
 
@@ -324,15 +336,15 @@ a {
 .tty-bar__meta {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   color: var(--mono8);
   font: 400 12px / 1.2 var(--font-ui);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
 }
 
 .tty-split {
   display: grid;
-  grid-template-columns: 168px minmax(0, 1fr);
+  grid-template-columns: 176px minmax(0, 1fr);
   flex: 1;
   min-height: 0;
 }
@@ -340,19 +352,25 @@ a {
 .tty-tree {
   display: flex;
   flex-direction: column;
-  gap: 1px;
-  padding: 16px 10px 24px;
+  gap: 0;
+  padding: 14px 10px 20px;
   border-right: 1px solid color-mix(in oklab, var(--mono5) 90%, var(--accent-border));
-  font: 400 13px / 1.7 var(--font-ui);
+  font: 400 13px / 1.65 var(--font-ui);
+}
+
+.subpage-root .tty-tree {
+  position: sticky;
+  top: 40px;
+  align-self: start;
 }
 
 .tty-tree__label {
-  margin: 14px 0 4px;
+  margin: 16px 0 2px;
   padding: 0 8px;
   color: var(--mono7);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  text-transform: none;
 }
 
 .tty-tree__label:first-child {
@@ -361,11 +379,11 @@ a {
 
 .tty-tree a {
   display: block;
-  padding: 0 8px;
+  padding: 1px 8px;
   color: var(--mono9);
   text-decoration: none;
   white-space: nowrap;
-  transition: color var(--transition-xx) ease, background-color var(--transition-xx) ease;
+  transition: color var(--transition-xx) ease;
 }
 
 .tty-tree a::before {
@@ -376,7 +394,7 @@ a {
 
 .tty-tree a.is-current {
   color: var(--fg);
-  background: color-mix(in oklab, var(--mono4) 70%, var(--accent-surface));
+  background: none;
 }
 
 .tty-tree a.is-current::before {
@@ -387,7 +405,7 @@ a {
   position: relative;
   z-index: 1;
   min-width: 0;
-  padding: 28px 32px 96px;
+  padding: 28px 36px 88px;
   overflow: auto;
 }
 
@@ -399,11 +417,11 @@ a {
   display: flex;
   justify-content: space-between;
   flex: none;
-  padding: 6px 14px;
+  padding: 7px 16px;
   border-top: 1px solid color-mix(in oklab, var(--mono5) 90%, var(--accent-border));
   color: var(--mono8);
   font: 400 11px / 1.2 var(--font-ui);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   background: var(--bg);
   position: relative;
   z-index: 2;
@@ -502,6 +520,13 @@ a {
   width: auto;
   height: auto;
   position: relative;
+  transition:
+    color var(--transition-xx) ease,
+    transform var(--transition-med) var(--ease-out-strong);
+}
+
+.theme-toggle:active {
+  transform: scale(0.97);
 }
 
 .theme-toggle__mode {
@@ -535,7 +560,7 @@ main.tty-buffer {
   min-height: 0;
   max-width: none;
   margin: 0;
-  padding: 28px 32px 96px;
+  padding: 28px 36px 88px;
 }
 
 .index-card,
@@ -566,7 +591,7 @@ main.tty-buffer {
 }
 
 .index-kicker {
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   color: var(--dev-green);
   font: 500 var(--text-s) / 1.2 var(--font-ui);
   letter-spacing: 0.04em;
@@ -1236,25 +1261,22 @@ section p + p {
 }
 
 .writing-entry {
-  border-radius: var(--radius);
-  transition:
-    background-color var(--transition-xx) ease,
-    transform var(--transition-med) var(--ease-out-strong);
+  transition: color var(--transition-xx) ease;
 }
 
 .writing-entry__link {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 16px;
-  min-height: 56px;
+  grid-template-columns: 3ch minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 12px;
+  min-height: 0;
 }
 
 .prose .writing-entry__link,
 .writing-entry__link {
   color: color-mix(in oklab, var(--mono12) 92%, var(--fg));
   text-decoration: none;
-  padding: 0 2px;
+  padding: 6px 0;
   transition: color var(--transition-xx) ease;
 }
 
@@ -1273,20 +1295,18 @@ section p + p {
   color: color-mix(in oklab, var(--mono9) 92%, var(--sand-text));
   font: var(--type-s);
   letter-spacing: 0.02em;
-  transition:
-    color var(--transition-xx) ease,
-    transform var(--transition-med) var(--ease-out-strong);
+  transition: color var(--transition-xx) ease;
 }
 
 .writing-entry--placeholder {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 16px;
-  min-height: 56px;
+  grid-template-columns: 3ch minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 12px;
+  min-height: 0;
   color: color-mix(in oklab, var(--mono10) 82%, var(--sand-text));
   opacity: 0.86;
-  padding: 0 2px;
+  padding: 6px 0;
 }
 
 .writing-entry--placeholder .writing-entry__title {
@@ -1499,10 +1519,6 @@ footer > div > :first-child {
     color: color-mix(in oklab, var(--mono12) 92%, var(--fg));
   }
 
-  .tty-tree a:hover {
-    background: color-mix(in oklab, var(--mono3) 80%, var(--accent-surface));
-  }
-
   .index-menu a:hover,
   .index-menu a:focus-visible {
     outline: none;
@@ -1561,19 +1577,22 @@ footer > div > :first-child {
 
   .writing-entry:not(.writing-entry--placeholder):hover,
   .writing-entry:not(.writing-entry--placeholder):focus-within {
-    background: color-mix(in oklab, var(--mono3) 74%, var(--accent-surface));
-    transform: translateY(-1px);
+    background: none;
   }
 
   .writing-entry:not(.writing-entry--placeholder):hover .writing-entry__date,
   .writing-entry:not(.writing-entry--placeholder):focus-within .writing-entry__date {
     color: color-mix(in oklab, var(--accent-text) 78%, var(--mono11));
-    transform: translateX(-2px);
   }
 
   .work-entry:hover,
   .work-entry:focus-visible {
-    background: color-mix(in oklab, var(--mono3) 74%, var(--accent-surface));
+    background: none;
+  }
+
+  .work-entry:hover .work-entry__title,
+  .work-entry:focus-visible .work-entry__title {
+    color: color-mix(in oklab, var(--mono12) 98%, var(--fg));
   }
 }
 
@@ -1624,14 +1643,26 @@ footer > div > :first-child {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    gap: 4px 4px;
-    padding: 8px 10px;
+    gap: 2px 4px;
+    padding: 6px 8px;
     border-right: 0;
     border-bottom: 1px solid color-mix(in oklab, var(--mono5) 90%, var(--accent-border));
   }
 
+  .tty-tree a {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 8px;
+  }
+
   .tty-tree__label {
     display: none;
+  }
+
+  .subpage-root .tty-bar,
+  .subpage-root .tty-tree {
+    position: static;
   }
 
   .tty-buffer,
