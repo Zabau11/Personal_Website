@@ -390,25 +390,34 @@ a {
   overflow: auto;
 }
 
+footer.tty-status,
 .tty-status {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
-  flex: none;
-  padding: 10px 24px calc(14px + env(safe-area-inset-bottom)) 24px;
-  border-top: 1px solid color-mix(in oklab, var(--mono5) 90%, var(--accent-border));
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0 32px calc(28px + env(safe-area-inset-bottom));
+  border: 0;
+  background: none;
   color: var(--mono9);
   font: 400 12px / 1.2 var(--font-ui);
   letter-spacing: 0.04em;
-  background: var(--bg);
-  position: relative;
-  z-index: 2;
 }
 
 .tty-status span {
   flex: none;
   white-space: nowrap;
+  text-shadow:
+    0 0 10px var(--bg),
+    0 0 6px var(--bg);
 }
 
 .code-drop {
