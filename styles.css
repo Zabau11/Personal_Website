@@ -217,6 +217,26 @@ body {
   overflow-y: auto;
 }
 
+body::after {
+  content: "";
+  position: fixed;
+  inset: -40%;
+  width: 180%;
+  height: 180%;
+  pointer-events: none;
+  z-index: 12;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("./images/grain.svg");
+  background-repeat: repeat;
+  animation: grain-shift 0.7s steps(4) infinite;
+}
+
+:root[data-theme="light"] body::after {
+  opacity: 0.055;
+  mix-blend-mode: multiply;
+}
+
 a {
   color: inherit;
 }
@@ -509,7 +529,7 @@ a {
 .index-about {
   display: grid;
   gap: 8px;
-  margin: 28px 0 0;
+  margin: 8px 0 0;
   max-width: 50ch;
   font: 400 var(--text-s) / 1.65 var(--font-sans);
 }
@@ -1271,6 +1291,10 @@ footer > div > :first-child {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  body::after {
+    animation: none;
+  }
+
   .index-feature-link,
   .index-feature-link::after {
     transition: none;
@@ -1292,6 +1316,12 @@ footer > div > :first-child {
 
   .theme-toggle:active .theme-toggle__icon {
     transform: none;
+  }
+}
+
+@keyframes grain-shift {
+  to {
+    transform: translate3d(-3%, 4%, 0);
   }
 }
 
