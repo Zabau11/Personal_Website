@@ -1910,6 +1910,31 @@ footer > div > :first-child {
   height: 100dvh;
 }
 
+.home-page .tty-pane__id {
+  font-size: 13px;
+}
+
+.home-page .tty-pane__main h1 {
+  font-size: 22px;
+}
+
+.home-page .tty-now {
+  max-width: 42ch;
+  font: 400 17px / 1.6 var(--font-ui);
+}
+
+.home-page .tty-pane__log a {
+  font-size: 14px;
+}
+
+.home-page .tty-keys strong {
+  font-size: 16px;
+}
+
+.home-page .tty-keys span {
+  font-size: 13px;
+}
+
 @media (max-width: 1024px) {
   .main-grid {
     grid-template-columns: auto var(--content-width) auto;
@@ -2028,9 +2053,17 @@ footer > div > :first-child {
     white-space: nowrap;
   }
 
+  .home-page .tty-pane__main h1 {
+    font-size: 18px;
+  }
+
   .tty-now {
     max-width: none;
     font: 400 14px / 1.6 var(--font-ui);
+  }
+
+  .home-page .tty-now {
+    font: 400 16px / 1.6 var(--font-ui);
   }
 
   .tty-pane__log {
