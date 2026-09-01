@@ -42,9 +42,16 @@
   <body class="work-page">
     <div class="tty site-root subpage-root">
       <header class="tty-bar">
-        <a class="tty-bar__id" href="./index.html" aria-label="David Sabau home">david@zabau<span>:~</span></a>
+        <a class="tty-bar__id" href="./index.html" aria-label="David Sabau home">
+          <span class="tty-bar__full">david@zabau</span><span class="tty-bar__prompt">:~</span>
+          <span class="tty-bar__short">zabau</span>
+        </a>
+        <nav class="tty-bar__nav" aria-label="Pages">
+          <a href="./projects.html" class="is-current" aria-current="page">work/</a>
+          <a href="./thoughts.html">thoughts/</a>
+        </nav>
         <div class="tty-bar__meta">
-          <span>session</span>
+          <span class="tty-bar__session">session</span>
           <button class="theme-toggle" type="button" aria-label="Switch to light mode" data-theme-toggle>
             <span class="theme-toggle__mode theme-toggle__mode--dark">dark</span>
             <span class="theme-toggle__mode theme-toggle__mode--light">light</span>
