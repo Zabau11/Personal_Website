@@ -1645,6 +1645,19 @@ footer > div > :first-child {
     animation-delay: calc(var(--stagger) * var(--delay) + var(--start));
   }
 
+  .entry-page [data-animate],
+  .writing-index-page [data-animate] {
+    animation: none;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .entry-page [data-animate].is-inview,
+  .writing-index-page [data-animate].is-inview {
+    animation: enter 0.58s cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation-delay: var(--reveal-delay, 0s);
+  }
+
   .intro-title[data-animate] {
     animation: none;
   }

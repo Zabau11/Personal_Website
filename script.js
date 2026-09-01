@@ -244,6 +244,73 @@ const writingScroller = document.querySelector(
 );
 const scrollHint = document.querySelector("[data-scroll-hint]");
 
+const revealThoughtText = () => {
+  if (prefersReducedMotion) {
+    return;
+  }
+
+  const page = document.querySelector(".entry-page, .writing-index-page");
+
+  if (!(page instanceof HTMLElement)) {
+    return;
+  }
+
+  const blocks = [...page.querySelectorAll("[data-animate]")];
+
+  if (blocks.length === 0) {
+    return;
+  }
+
+  const scroller = writingScroller instanceof HTMLElement ? writingScroller : null;
+  let queue = [];
+  let flushFrame = 0;
+
+  const flushQueue = () => {
+    flushFrame = 0;
+    const wave = queue
+      .splice(0, queue.length)
+      .filter((el) => !el.classList.contains("is-inview"))
+      .sort((a, b) => {
+        if (a === b) {
+          return 0;
+        }
+
+        return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+      });
+
+    wave.forEach((el, index) => {
+      el.style.setProperty("--reveal-delay", `${index * 70}ms`);
+      el.classList.add("is-inview");
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        queue.push(entry.target);
+        observer.unobserve(entry.target);
+
+        if (!flushFrame) {
+          flushFrame = window.requestAnimationFrame(flushQueue);
+        }
+      });
+    },
+    {
+      root: scroller,
+      threshold: 0.18,
+      rootMargin: "0px 0px -10% 0px",
+    }
+  );
+
+  blocks.forEach((el) => observer.observe(el));
+};
+
+revealThoughtText();
+
 if (writingScroller instanceof HTMLElement && scrollHint instanceof HTMLElement) {
   const edgeThreshold = 2;
   const endLabel = document.body.classList.contains("writing-index-page")
