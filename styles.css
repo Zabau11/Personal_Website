@@ -55,21 +55,21 @@
   --transition-xx: 0.24s;
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
 
-  --white: #ece9e1;
-  --black: #0f0f0e;
+  --white: #f4f1e8;
+  --black: #080808;
 
-  --gray1: #0f0f0e;
-  --gray2: #161615;
-  --gray3: #1c1c1b;
-  --gray4: #242423;
-  --gray5: #2e2e2c;
-  --gray6: #3a3a37;
-  --gray7: #4e4e4a;
-  --gray8: #6a6a64;
-  --gray9: #8c8c84;
-  --gray10: #a8a89e;
-  --gray11: #cfcbc2;
-  --gray12: #ece9e1;
+  --gray1: #080808;
+  --gray2: #101010;
+  --gray3: #171717;
+  --gray4: #20201f;
+  --gray5: #2b2b29;
+  --gray6: #383836;
+  --gray7: #4d4d48;
+  --gray8: #6b6b63;
+  --gray9: #8e8e84;
+  --gray10: #b0b0a4;
+  --gray11: #d5d2c6;
+  --gray12: #f4f1e8;
 
   --grayA1: #ffffff00;
   --grayA2: #ffffff07;
@@ -84,26 +84,26 @@
   --grayA11: #ffffff97;
   --grayA12: #ffffffeb;
 
-  --accent-surface: #161814;
-  --accent-surface-strong: #1e221c;
-  --accent-border: #6d7d62;
-  --accent-text: #a7b89a;
-  --accent-strong: #c5d4b8;
-  --accent-strong-text: #121410;
-  --sand-surface: #161615;
-  --sand-text: #8c8c84;
-  --clay-text: #8c8c84;
-  --focus-ring: #a7b89a59;
+  --accent-surface: #12140f;
+  --accent-surface-strong: #1b2016;
+  --accent-border: #8a9a62;
+  --accent-text: #c4d4a4;
+  --accent-strong: #dce6c4;
+  --accent-strong-text: #0c0e0a;
+  --sand-surface: #101010;
+  --sand-text: #8e8e84;
+  --clay-text: #8e8e84;
+  --focus-ring: #c4d4a459;
 
-  --selection: #6d7d6266;
-  --bg: #0f0f0e;
-  --fg: #ece9e1;
-  --text-color: #cfcbc2;
-  --alpha: #0f0f0ee6;
+  --selection: #8a9a6266;
+  --bg: #080808;
+  --fg: #f4f1e8;
+  --text-color: #d5d2c6;
+  --alpha: #080808e6;
   --page-blur-strength: 3px;
-  --page-blur-overlay: rgb(15 15 14 / 0.46);
-  --dev-blue: #9aa39c;
-  --dev-green: #a7b89a;
+  --page-blur-overlay: rgb(8 8 8 / 0.46);
+  --dev-blue: #a8a89c;
+  --dev-green: #c4d4a4;
 
   --mono1: var(--gray1);
   --mono2: var(--gray2);
@@ -122,41 +122,41 @@
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --white: #1a1916;
-  --black: #efece3;
+  --white: #141311;
+  --black: #f6f1e3;
 
-  --gray1: #efece3;
-  --gray2: #e7e3d8;
-  --gray3: #ddd8cb;
-  --gray4: #d0cbbd;
-  --gray5: #c2bdb0;
-  --gray6: #aea99c;
-  --gray7: #8f8a7e;
-  --gray8: #6f6b61;
-  --gray9: #524f47;
-  --gray10: #3f3c36;
-  --gray11: #2c2a26;
-  --gray12: #1a1916;
+  --gray1: #f6f1e3;
+  --gray2: #ece6d4;
+  --gray3: #e0d9c4;
+  --gray4: #d2cbb4;
+  --gray5: #c3bca6;
+  --gray6: #ada790;
+  --gray7: #8f8974;
+  --gray8: #6e6a59;
+  --gray9: #524e41;
+  --gray10: #3e3b32;
+  --gray11: #2a2822;
+  --gray12: #141311;
 
-  --accent-surface: #e4e7dc;
-  --accent-surface-strong: #d5dbc8;
-  --accent-border: #5a6b55;
-  --accent-text: #3e4f3c;
-  --accent-strong: #2f3d2e;
-  --accent-strong-text: #f2efe6;
-  --sand-surface: #e7e3d8;
-  --sand-text: #3f3c36;
-  --clay-text: #3f3c36;
-  --focus-ring: #5a6b554d;
+  --accent-surface: #e7ead4;
+  --accent-surface-strong: #d5dcb8;
+  --accent-border: #5c6b38;
+  --accent-text: #3a4a22;
+  --accent-strong: #2a3618;
+  --accent-strong-text: #f6f1e3;
+  --sand-surface: #ece6d4;
+  --sand-text: #3e3b32;
+  --clay-text: #3e3b32;
+  --focus-ring: #5c6b384d;
 
-  --selection: #5a6b554d;
-  --bg: #efece3;
-  --fg: #1a1916;
-  --text-color: #2c2a26;
-  --alpha: #efece3e6;
-  --page-blur-overlay: rgb(239 236 227 / 0.62);
-  --dev-blue: #4a524c;
-  --dev-green: #3e4f3c;
+  --selection: #c4d4a466;
+  --bg: #f6f1e3;
+  --fg: #141311;
+  --text-color: #2a2822;
+  --alpha: #f6f1e3e6;
+  --page-blur-overlay: rgb(246 241 227 / 0.62);
+  --dev-blue: #524e41;
+  --dev-green: #3a4a22;
 }
 
 * {
@@ -1772,17 +1772,17 @@ footer > div > :first-child {
 
   28% {
     transform: translate(-1px, 0);
-    text-shadow: -1px 0 rgba(167, 184, 154, 0.7), 0 0 8px rgba(167, 184, 154, 0.4);
+    text-shadow: -1px 0 rgba(196, 212, 164, 0.7), 0 0 8px rgba(196, 212, 164, 0.4);
   }
 
   58% {
     transform: translate(1px, 1px);
-    text-shadow: 1px 0 rgba(167, 184, 154, 0.5);
+    text-shadow: 1px 0 rgba(196, 212, 164, 0.5);
   }
 
   82% {
     transform: translate(0, 0);
-    text-shadow: 0 0 6px rgba(167, 184, 154, 0.28);
+    text-shadow: 0 0 6px rgba(196, 212, 164, 0.28);
   }
 }
 
