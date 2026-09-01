@@ -504,6 +504,7 @@ footer.tty-status,
   margin: 0;
   padding: 0;
   border: 0;
+  overflow: hidden;
   background: none;
   color: inherit;
   font: inherit;
@@ -515,7 +516,7 @@ footer.tty-status,
 .code-drop__slice.is-glitching {
   position: relative;
   z-index: 1;
-  color: color-mix(in oklab, var(--accent-text) 86%, var(--mono12));
+  color: inherit;
   animation: code-glitch-slice 340ms linear;
 }
 
