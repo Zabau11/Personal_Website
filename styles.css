@@ -629,7 +629,7 @@ main.tty-buffer {
 .scroll-hint {
   position: absolute;
   left: calc(176px + 28px);
-  bottom: calc(var(--code-floor-height) + var(--gap));
+  bottom: calc(var(--code-floor-height) - var(--gap-3x));
   z-index: 2;
   margin: 0;
   color: color-mix(in oklab, var(--accent-text) 70%, var(--mono9));
@@ -646,6 +646,14 @@ main.tty-buffer {
 .scroll-hint::before {
   content: "↓";
   margin-right: var(--gap);
+}
+
+.scroll-hint[data-state="end"] {
+  color: color-mix(in oklab, var(--accent-text) 54%, var(--mono9));
+}
+
+.scroll-hint[data-state="end"]::before {
+  content: "—";
 }
 
 .scroll-hint.is-visible {

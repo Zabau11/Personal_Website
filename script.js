@@ -246,6 +246,9 @@ const scrollHint = document.querySelector("[data-scroll-hint]");
 
 if (writingScroller instanceof HTMLElement && scrollHint instanceof HTMLElement) {
   const edgeThreshold = 2;
+  const endLabel = document.body.classList.contains("writing-index-page")
+    ? "end of list"
+    : "end of note";
   let scrollHintDismissed = writingScroller.scrollTop > edgeThreshold;
 
   const updateScrollHint = () => {
@@ -258,9 +261,12 @@ if (writingScroller instanceof HTMLElement && scrollHint instanceof HTMLElement)
       scrollHintDismissed = true;
     }
 
+    scrollHint.dataset.state = isAtBottom ? "end" : "continue";
+    scrollHint.textContent = isAtBottom ? endLabel : "scroll to continue";
+
     scrollHint.classList.toggle(
       "is-visible",
-      hasOverflow && !scrollHintDismissed && !isAtBottom
+      hasOverflow && (isAtBottom || !scrollHintDismissed)
     );
   };
 
