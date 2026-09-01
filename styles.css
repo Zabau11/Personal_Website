@@ -508,7 +508,7 @@ footer.tty-status,
 
 @media (prefers-reduced-motion: no-preference) {
   .code-drop__glyphs {
-    animation: code-glitch 9s linear infinite;
+    animation: code-glitch 1.8s linear infinite;
   }
 }
 
@@ -1671,34 +1671,57 @@ footer > div > :first-child {
 }
 
 @keyframes code-glitch {
-  0%,
-  86%,
-  100% {
+  0% {
     transform: translate(0, 0);
     text-shadow: none;
   }
 
-  87% {
-    transform: translate(-2px, 0);
-    text-shadow: -2px 0 #9bd3ae, 2px 0 #6b635a;
+  12% {
+    transform: translate(-1px, 0);
+    text-shadow: -1px 0 rgba(155, 211, 174, 0.28);
   }
 
-  88.5% {
-    transform: translate(2px, 1px);
-    text-shadow: 2px 0 #9bd3ae, -1px 0 #6b635a;
-  }
-
-  90% {
+  18% {
     transform: translate(0, 0);
     text-shadow: none;
   }
 
-  93% {
+  31% {
     transform: translate(1px, 0);
-    text-shadow: -1px 0 #9bd3ae;
+    text-shadow: 1px 0 rgba(107, 99, 90, 0.22);
   }
 
-  94% {
+  38% {
+    transform: translate(0, 1px);
+    text-shadow: none;
+  }
+
+  52% {
+    transform: translate(-1px, 0);
+    text-shadow: -1px 0 rgba(155, 211, 174, 0.2);
+  }
+
+  58% {
+    transform: translate(0, 0);
+    text-shadow: none;
+  }
+
+  73% {
+    transform: translate(1px, 0);
+    text-shadow: none;
+  }
+
+  79% {
+    transform: translate(0, 0);
+    text-shadow: 1px 0 rgba(155, 211, 174, 0.18);
+  }
+
+  91% {
+    transform: translate(-1px, 0);
+    text-shadow: none;
+  }
+
+  100% {
     transform: translate(0, 0);
     text-shadow: none;
   }
