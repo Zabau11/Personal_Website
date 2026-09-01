@@ -1,30 +1,8 @@
-@font-face {
-  font-family: Inter;
-  font-display: block;
-  src: url("https://paco.me/fonts/inter-subset.woff2") format("woff2");
-  font-weight: 100 900;
-}
-
-@font-face {
-  font-family: Newsreader;
-  font-display: block;
-  src: url("https://paco.me/fonts/newsreader-subset-0.woff2") format("woff2");
-  font-weight: 400;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: Sohne;
-  font-display: block;
-  src: url("https://paco.me/fonts/sohne-subset-0.woff2") format("woff2");
-  font-weight: 400;
-}
-
 :root {
   color-scheme: dark;
 
   --font-fallback: ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono", "Courier New", monospace;
-  --font-typewriter: "Azeret Mono", var(--font-fallback);
+  --font-typewriter: "Courier Prime", var(--font-fallback);
   --font-mono: var(--font-typewriter);
   --font-display: var(--font-typewriter);
   --font-ui: var(--font-typewriter);
