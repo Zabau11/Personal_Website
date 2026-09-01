@@ -14,7 +14,7 @@
   --index-width: 520px;
   --page-top: 84px;
   --footer-height: 48px;
-  --code-floor-height: 198px;
+  --code-floor-height: 234px;
 
   --body-margin-left: max(24px, env(safe-area-inset-left));
   --body-margin-right: max(24px, env(safe-area-inset-right));
@@ -286,7 +286,7 @@ a {
 
 .tty-bar__id {
   color: color-mix(in oklab, var(--mono12) 92%, var(--fg));
-  font: 500 13px / 1.2 var(--font-ui);
+  font: 500 15px / 1.2 var(--font-ui);
   letter-spacing: 0.01em;
   text-decoration: none;
   white-space: nowrap;
@@ -309,7 +309,7 @@ a {
   align-items: center;
   gap: 14px;
   color: var(--mono8);
-  font: 400 12px / 1.2 var(--font-ui);
+  font: 400 14px / 1.2 var(--font-ui);
   letter-spacing: 0.04em;
 }
 
@@ -334,14 +334,14 @@ a {
   padding: 14px 10px 20px;
   overflow: auto;
   border-right: 1px solid color-mix(in oklab, var(--mono5) 90%, var(--accent-border));
-  font: 400 13px / 1.65 var(--font-ui);
+  font: 400 15px / 1.65 var(--font-ui);
 }
 
 .tty-tree__label {
   margin: 16px 0 2px;
   padding: 0 8px;
   color: var(--mono7);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.02em;
   text-transform: none;
 }
@@ -402,7 +402,7 @@ footer.tty-status,
   border: 0;
   background: none;
   color: var(--mono9);
-  font: 400 12px / 1.2 var(--font-ui);
+  font: 400 13px / 1.2 var(--font-ui);
   letter-spacing: 0.04em;
 }
 
@@ -426,7 +426,7 @@ footer.tty-status,
   transform: translateX(-50%);
   pointer-events: none;
   user-select: none;
-  font: 11px / 1 var(--font-mono);
+  font: 13px / 1 var(--font-mono);
   letter-spacing: 0.05em;
   color: color-mix(in oklab, var(--mono8) 62%, var(--accent-text));
   white-space: pre;
@@ -522,11 +522,11 @@ footer.tty-status,
 
 @media (max-width: 640px) {
   :root {
-    --code-floor-height: 162px;
+    --code-floor-height: 198px;
   }
 
   .code-drop {
-    font-size: 9px;
+    font-size: 11px;
     transform: translateX(-50%);
   }
 }
@@ -1975,7 +1975,7 @@ footer > div > :first-child {
   .tty-bar__id,
   .tty-bar__meta {
     white-space: nowrap;
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 0.02em;
   }
 
@@ -1992,7 +1992,7 @@ footer > div > :first-child {
     align-items: center;
     min-height: 44px;
     color: var(--mono9);
-    font: 400 12px / 1.2 var(--font-ui);
+    font: 400 14px / 1.2 var(--font-ui);
     text-decoration: none;
     white-space: nowrap;
   }
