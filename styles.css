@@ -1176,10 +1176,10 @@ main {
   margin-bottom: 0;
 }
 
-.prose em,
-.prose i {
-  color: color-mix(in oklab, var(--fg) 82%, var(--mono10));
-  font: var(--type-italic);
+.prose strong,
+.prose b {
+  color: color-mix(in oklab, var(--mono12) 94%, var(--fg));
+  font-weight: 700;
 }
 
 .prose p {
