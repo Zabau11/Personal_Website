@@ -397,6 +397,7 @@ a {
   min-height: 0;
   padding: 20px 28px 88px;
   overflow: auto;
+  background: transparent;
 }
 
 footer.tty-status,
@@ -508,9 +509,25 @@ footer.tty-status,
 
 @media (max-width: 768px) {
   .code-drop {
-    font-size: 11px;
-    transform: translate(-50%, 2%);
-    color: color-mix(in oklab, var(--mono9) 45%, var(--accent-text));
+    font-size: 12px;
+    transform: translate(-50%, 8%);
+    color: color-mix(in oklab, var(--accent-text) 78%, var(--mono11));
+    -webkit-mask-image: radial-gradient(
+      ellipse 110% 90% at 50% 100%,
+      #fff 18%,
+      rgba(255, 255, 255, 0.7) 48%,
+      rgba(255, 255, 255, 0.22) 70%,
+      rgba(255, 255, 255, 0) 88%
+    );
+    mask-image: radial-gradient(
+      ellipse 110% 90% at 50% 100%,
+      #fff 18%,
+      rgba(255, 255, 255, 0.7) 48%,
+      rgba(255, 255, 255, 0.22) 70%,
+      rgba(255, 255, 255, 0) 88%
+    );
+    -webkit-mask-composite: source-over;
+    mask-composite: add;
   }
 }
 
