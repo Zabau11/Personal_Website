@@ -201,6 +201,7 @@ html {
   -webkit-text-size-adjust: 100%;
   background: var(--bg);
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 body {
@@ -216,6 +217,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   touch-action: manipulation;
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 a {
@@ -285,6 +287,7 @@ a {
   padding: 0;
   border: 0;
   overflow: hidden;
+  overscroll-behavior: none;
   background: var(--bg);
 }
 
@@ -338,6 +341,7 @@ a {
   flex: 1;
   min-height: 0;
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 .tty-tree {
@@ -439,7 +443,7 @@ footer.tty-status,
   margin: 0;
   padding: 0;
   overflow: hidden;
-  transform: translate(-50%, 6%);
+  transform: translateX(-50%);
   pointer-events: none;
   user-select: none;
   font: 11px / 1 var(--font-mono);
@@ -539,7 +543,7 @@ footer.tty-status,
 @media (max-width: 640px) {
   .code-drop {
     font-size: 9px;
-    transform: translate(-50%, 10%);
+    transform: translateX(-50%);
   }
 }
 
@@ -1838,10 +1842,12 @@ footer > div > :first-child {
   }
 }
 
-@media (min-width: 769px) {
-  .home-page {
-    overflow-y: hidden;
-  }
+.home-page,
+.home-page .tty-split,
+.home-page .tty-buffer,
+.home-page main.tty-buffer {
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 @media (max-width: 1024px) {

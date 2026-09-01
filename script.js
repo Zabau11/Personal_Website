@@ -77,10 +77,9 @@ const runSliceGlitch = () => {
     });
   });
 
-  const minVisibleRow = Math.floor(rows * 0.6);
   const occupied = [];
 
-  for (let y = minVisibleRow; y < rows; y += 1) {
+  for (let y = 0; y < rows; y += 1) {
     for (let x = 0; x < cols; x += 1) {
       if (grid[y][x] !== " ") {
         occupied.push([x, y]);
@@ -148,12 +147,8 @@ const runSliceGlitch = () => {
 
   const pickRuns = () => {
     const [seedX, seedY] = pickSeed();
-    const maxHeight = Math.min(5, rows - minVisibleRow);
-    const height = 2 + Math.floor(Math.random() * Math.max(1, maxHeight - 1));
-    const startRow = Math.max(
-      minVisibleRow,
-      Math.min(rows - height, seedY - Math.floor(Math.random() * height))
-    );
+    const height = 2 + Math.floor(Math.random() * 5);
+    const startRow = Math.max(0, Math.min(rows - height, seedY - Math.floor(Math.random() * height)));
     const runs = [];
     let cursor = seedX;
     let prevLength = 0;
