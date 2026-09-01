@@ -55,21 +55,21 @@
   --transition-xx: 0.24s;
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
 
-  --white: #f4f1e8;
-  --black: #080808;
+  --white: #f6f1e3;
+  --black: #13110d;
 
-  --gray1: #080808;
-  --gray2: #101010;
-  --gray3: #171717;
-  --gray4: #20201f;
-  --gray5: #2b2b29;
-  --gray6: #383836;
-  --gray7: #4d4d48;
-  --gray8: #6b6b63;
-  --gray9: #8e8e84;
-  --gray10: #b0b0a4;
-  --gray11: #d5d2c6;
-  --gray12: #f4f1e8;
+  --gray1: #13110d;
+  --gray2: #1b1914;
+  --gray3: #232017;
+  --gray4: #2c2920;
+  --gray5: #38342a;
+  --gray6: #474338;
+  --gray7: #5e594c;
+  --gray8: #7a7464;
+  --gray9: #9c9682;
+  --gray10: #b8b29c;
+  --gray11: #d9d3c0;
+  --gray12: #f6f1e3;
 
   --grayA1: #ffffff00;
   --grayA2: #ffffff07;
@@ -84,26 +84,26 @@
   --grayA11: #ffffff97;
   --grayA12: #ffffffeb;
 
-  --accent-surface: #12140f;
-  --accent-surface-strong: #1b2016;
-  --accent-border: #8a9a62;
-  --accent-text: #c4d4a4;
-  --accent-strong: #dce6c4;
-  --accent-strong-text: #0c0e0a;
-  --sand-surface: #101010;
-  --sand-text: #8e8e84;
-  --clay-text: #8e8e84;
-  --focus-ring: #c4d4a459;
+  --accent-surface: #1a1c14;
+  --accent-surface-strong: #24281a;
+  --accent-border: #7c8258;
+  --accent-text: #c9cea8;
+  --accent-strong: #e2e6c8;
+  --accent-strong-text: #13110d;
+  --sand-surface: #1b1914;
+  --sand-text: #9c9682;
+  --clay-text: #9c9682;
+  --focus-ring: #c9cea859;
 
-  --selection: #8a9a6266;
-  --bg: #080808;
-  --fg: #f4f1e8;
-  --text-color: #d5d2c6;
-  --alpha: #080808e6;
+  --selection: #7c825866;
+  --bg: #13110d;
+  --fg: #f6f1e3;
+  --text-color: #d9d3c0;
+  --alpha: #13110de6;
   --page-blur-strength: 3px;
-  --page-blur-overlay: rgb(8 8 8 / 0.46);
-  --dev-blue: #a8a89c;
-  --dev-green: #c4d4a4;
+  --page-blur-overlay: rgb(19 17 13 / 0.46);
+  --dev-blue: #b8b29c;
+  --dev-green: #c9cea8;
 
   --mono1: var(--gray1);
   --mono2: var(--gray2);
@@ -1793,17 +1793,17 @@ footer > div > :first-child {
 
   28% {
     transform: translate(-1px, 0);
-    text-shadow: -1px 0 rgba(196, 212, 164, 0.7), 0 0 8px rgba(196, 212, 164, 0.4);
+    text-shadow: -1px 0 rgba(201, 206, 168, 0.7), 0 0 8px rgba(201, 206, 168, 0.4);
   }
 
   58% {
     transform: translate(1px, 1px);
-    text-shadow: 1px 0 rgba(196, 212, 164, 0.5);
+    text-shadow: 1px 0 rgba(201, 206, 168, 0.5);
   }
 
   82% {
     transform: translate(0, 0);
-    text-shadow: 0 0 6px rgba(196, 212, 164, 0.28);
+    text-shadow: 0 0 6px rgba(201, 206, 168, 0.28);
   }
 }
 

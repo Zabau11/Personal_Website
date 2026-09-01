@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Z favicon">
-  <rect width="64" height="64" rx="0" fill="#080808" />
+  <rect width="64" height="64" rx="0" fill="#13110d" />
   <text
     x="50%"
     y="50%"
-    fill="#f4f1e8"
+    fill="#f6f1e3"
     font-family="ui-monospace, SF Mono, Menlo, Monaco, monospace"
     font-size="40"
     font-weight="500"
