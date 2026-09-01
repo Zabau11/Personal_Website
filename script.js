@@ -46,13 +46,20 @@ const runSliceGlitch = () => {
     return;
   }
 
+  const drop = document.querySelector(".code-drop");
+  const split = drop?.closest(".tty-split");
   const slices = [...document.querySelectorAll(".code-drop__slice")].filter((el) =>
     /\S/.test(el.textContent || "")
   );
 
-  if (slices.length === 0) {
+  if (!drop || !split || slices.length === 0) {
     return;
   }
+
+  const live = document.createElement("pre");
+  live.className = "code-drop__live";
+  live.setAttribute("aria-hidden", "true");
+  split.appendChild(live);
 
   const weights = slices.map((el) => (el.textContent.match(/\S/g) || []).length);
   const total = weights.reduce((sum, weight) => sum + weight, 0);
@@ -84,10 +91,23 @@ const runSliceGlitch = () => {
 
   const pulse = () => {
     const slice = pickSlice();
-    slice.classList.add("is-glitching");
+    const rect = slice.getBoundingClientRect();
+    const style = window.getComputedStyle(slice);
+
+    live.textContent = slice.textContent;
+    live.style.left = `${rect.left}px`;
+    live.style.top = `${rect.top}px`;
+    live.style.fontFamily = style.fontFamily;
+    live.style.fontSize = style.fontSize;
+    live.style.fontWeight = style.fontWeight;
+    live.style.letterSpacing = style.letterSpacing;
+    live.classList.remove("is-on");
+    void live.offsetWidth;
+    live.classList.add("is-on");
 
     window.setTimeout(() => {
-      slice.classList.remove("is-glitching");
+      live.classList.remove("is-on");
+      live.textContent = "";
       window.setTimeout(pulse, 240 + Math.random() * 820);
     }, 340);
   };
