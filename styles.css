@@ -1876,7 +1876,7 @@ footer > div > :first-child {
 
   .tty-out {
     max-width: none;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .tty-pane__grid {
@@ -1889,13 +1889,13 @@ footer > div > :first-child {
   }
 
   .tty-pane__main h1 {
-    font-size: 15px;
+    font-size: 16px;
     white-space: nowrap;
   }
 
   .tty-now {
     max-width: none;
-    font: 400 12px / 1.55 var(--font-ui);
+    font: 400 14px / 1.6 var(--font-ui);
   }
 
   .tty-pane__log {
