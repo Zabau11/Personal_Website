@@ -1961,8 +1961,7 @@ footer > div > :first-child {
 
   footer.tty-status,
   .tty-status {
-    min-height: 0;
-    padding: 0 20px calc(22px + env(safe-area-inset-bottom));
+    display: none;
   }
 
   footer > div {

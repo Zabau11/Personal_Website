@@ -28,6 +28,19 @@ if (!rootElement.dataset.theme) {
 
 setTheme(getTheme());
 
+const statusClock = document.querySelector("[data-status-clock]");
+const formatStatusClock = (date) =>
+  date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+
+if (statusClock instanceof HTMLElement) {
+  const tickStatusClock = () => {
+    statusClock.textContent = formatStatusClock(new Date());
+  };
+
+  tickStatusClock();
+  window.setInterval(tickStatusClock, 1000);
+}
+
 if (themeToggle instanceof HTMLButtonElement) {
   themeToggle.addEventListener("click", () => {
     setTheme(getTheme() === "light" ? "dark" : "light");
