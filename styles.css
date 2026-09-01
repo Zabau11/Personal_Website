@@ -397,7 +397,6 @@ a {
   min-height: 0;
   padding: 20px 28px 88px;
   overflow: auto;
-  background: transparent;
 }
 
 footer.tty-status,
@@ -495,45 +494,10 @@ footer.tty-status,
   color: color-mix(in oklab, var(--mono8) 70%, var(--accent-text));
 }
 
-.code-drop__glyphs {
-  display: block;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: inherit;
-  font: inherit;
-  letter-spacing: inherit;
-  white-space: pre;
-}
-
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .code-drop {
-    font-size: 12px;
-    transform: translate(-50%, 8%);
-    color: color-mix(in oklab, var(--accent-text) 78%, var(--mono11));
-    -webkit-mask-image: radial-gradient(
-      ellipse 110% 90% at 50% 100%,
-      #fff 18%,
-      rgba(255, 255, 255, 0.7) 48%,
-      rgba(255, 255, 255, 0.22) 70%,
-      rgba(255, 255, 255, 0) 88%
-    );
-    mask-image: radial-gradient(
-      ellipse 110% 90% at 50% 100%,
-      #fff 18%,
-      rgba(255, 255, 255, 0.7) 48%,
-      rgba(255, 255, 255, 0.22) 70%,
-      rgba(255, 255, 255, 0) 88%
-    );
-    -webkit-mask-composite: source-over;
-    mask-composite: add;
-  }
-}
-
-@media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
-  .code-drop__glyphs {
-    animation: code-breathe 7s ease-in-out infinite;
+    font-size: 9px;
+    transform: translate(-50%, 10%);
   }
 }
 
@@ -1685,17 +1649,6 @@ footer > div > :first-child {
   50%,
   100% {
     opacity: 0;
-  }
-}
-
-@keyframes code-breathe {
-  0%,
-  100% {
-    opacity: 0.7;
-  }
-
-  50% {
-    opacity: 1;
   }
 }
 
