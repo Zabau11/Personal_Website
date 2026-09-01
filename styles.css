@@ -1640,6 +1640,15 @@ footer > div > :first-child {
     text-decoration: underline;
   }
 
+  .tty-pane__log a:hover {
+    color: color-mix(in oklab, var(--accent-text) 86%, var(--fg));
+    text-decoration: underline;
+  }
+
+  .tty-keys a:hover strong {
+    color: var(--fg);
+  }
+
   .index-feature-link:hover {
     color: color-mix(in oklab, var(--accent-text) 90%, var(--fg));
   }
@@ -1801,13 +1810,19 @@ footer > div > :first-child {
     font-size: 14px;
   }
 
-  .index-menu a {
+  .tty-pane__grid {
     grid-template-columns: 1fr;
-    gap: 4px;
+    gap: 28px;
   }
 
-  .index-menu em {
-    justify-self: start;
+  .tty-pane__log {
+    padding-top: 0;
+    padding-left: 14px;
+  }
+
+  .tty-keys {
+    grid-template-columns: 1fr;
+    max-width: 20ch;
   }
 
   .logo-button {
