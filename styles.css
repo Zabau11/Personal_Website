@@ -513,7 +513,7 @@ footer.tty-status,
 }
 
 .code-drop__live {
-  position: fixed;
+  position: absolute;
   z-index: 0;
   display: none;
   margin: 0;
