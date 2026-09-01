@@ -494,7 +494,12 @@ footer.tty-status,
   color: color-mix(in oklab, var(--mono8) 70%, var(--accent-text));
 }
 
-.code-drop__glyphs {
+.code-drop__grid {
+  display: grid;
+  grid-template-columns: repeat(8, max-content);
+}
+
+.code-drop__slice {
   display: block;
   margin: 0;
   padding: 0;
@@ -503,13 +508,15 @@ footer.tty-status,
   color: inherit;
   font: inherit;
   letter-spacing: inherit;
+  line-height: 1;
   white-space: pre;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .code-drop__glyphs {
-    animation: code-glitch 1.8s linear infinite;
-  }
+.code-drop__slice.is-glitching {
+  position: relative;
+  z-index: 1;
+  color: color-mix(in oklab, var(--accent-text) 86%, var(--mono12));
+  animation: code-glitch-slice 340ms linear;
 }
 
 @media (max-width: 640px) {
@@ -1670,60 +1677,26 @@ footer > div > :first-child {
   }
 }
 
-@keyframes code-glitch {
-  0% {
-    transform: translate(0, 0);
-    text-shadow: none;
-  }
-
-  12% {
-    transform: translate(-1px, 0);
-    text-shadow: -1px 0 rgba(155, 211, 174, 0.28);
-  }
-
-  18% {
-    transform: translate(0, 0);
-    text-shadow: none;
-  }
-
-  31% {
-    transform: translate(1px, 0);
-    text-shadow: 1px 0 rgba(107, 99, 90, 0.22);
-  }
-
-  38% {
-    transform: translate(0, 1px);
-    text-shadow: none;
-  }
-
-  52% {
-    transform: translate(-1px, 0);
-    text-shadow: -1px 0 rgba(155, 211, 174, 0.2);
-  }
-
-  58% {
-    transform: translate(0, 0);
-    text-shadow: none;
-  }
-
-  73% {
-    transform: translate(1px, 0);
-    text-shadow: none;
-  }
-
-  79% {
-    transform: translate(0, 0);
-    text-shadow: 1px 0 rgba(155, 211, 174, 0.18);
-  }
-
-  91% {
-    transform: translate(-1px, 0);
-    text-shadow: none;
-  }
-
+@keyframes code-glitch-slice {
+  0%,
   100% {
     transform: translate(0, 0);
     text-shadow: none;
+  }
+
+  28% {
+    transform: translate(-1px, 0);
+    text-shadow: -1px 0 rgba(155, 211, 174, 0.55), 1px 0 rgba(107, 99, 90, 0.28);
+  }
+
+  58% {
+    transform: translate(1px, 1px);
+    text-shadow: 1px 0 rgba(155, 211, 174, 0.4);
+  }
+
+  82% {
+    transform: translate(0, 0);
+    text-shadow: -1px 0 rgba(155, 211, 174, 0.22);
   }
 }
 

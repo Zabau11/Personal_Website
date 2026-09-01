@@ -41,6 +41,62 @@ if (statusClock instanceof HTMLElement) {
   window.setInterval(tickStatusClock, 1000);
 }
 
+const runSliceGlitch = () => {
+  if (prefersReducedMotion) {
+    return;
+  }
+
+  const slices = [...document.querySelectorAll(".code-drop__slice")].filter((el) =>
+    /\S/.test(el.textContent || "")
+  );
+
+  if (slices.length === 0) {
+    return;
+  }
+
+  const weights = slices.map((el) => (el.textContent.match(/\S/g) || []).length);
+  const total = weights.reduce((sum, weight) => sum + weight, 0);
+  let lastIndex = -1;
+
+  const pickSlice = () => {
+    let index = 0;
+
+    for (let attempt = 0; attempt < 10; attempt += 1) {
+      let roll = Math.random() * total;
+      index = weights.length - 1;
+
+      for (let i = 0; i < weights.length; i += 1) {
+        roll -= weights[i];
+        if (roll <= 0) {
+          index = i;
+          break;
+        }
+      }
+
+      if (index !== lastIndex || slices.length < 2) {
+        break;
+      }
+    }
+
+    lastIndex = index;
+    return slices[index];
+  };
+
+  const pulse = () => {
+    const slice = pickSlice();
+    slice.classList.add("is-glitching");
+
+    window.setTimeout(() => {
+      slice.classList.remove("is-glitching");
+      window.setTimeout(pulse, 240 + Math.random() * 820);
+    }, 340);
+  };
+
+  pulse();
+};
+
+runSliceGlitch();
+
 if (themeToggle instanceof HTMLButtonElement) {
   themeToggle.addEventListener("click", () => {
     setTheme(getTheme() === "light" ? "dark" : "light");
