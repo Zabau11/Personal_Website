@@ -36,6 +36,7 @@
   --index-width: 520px;
   --page-top: 84px;
   --footer-height: 48px;
+  --code-floor-height: 198px;
 
   --body-margin-left: max(24px, env(safe-area-inset-left));
   --body-margin-right: max(24px, env(safe-area-inset-right));
@@ -542,6 +543,10 @@ footer.tty-status,
 }
 
 @media (max-width: 640px) {
+  :root {
+    --code-floor-height: 162px;
+  }
+
   .code-drop {
     font-size: 9px;
     transform: translateX(-50%);
@@ -612,6 +617,13 @@ main.tty-buffer {
   max-width: none;
   margin: 0;
   padding: 20px 28px 88px;
+}
+
+.entry-page main.tty-buffer,
+.writing-index-page main.tty-buffer {
+  align-self: start;
+  height: calc(100% - var(--code-floor-height));
+  padding-bottom: var(--gap-3x);
 }
 
 .index-card,
