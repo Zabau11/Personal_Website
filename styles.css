@@ -562,7 +562,7 @@ main.tty-buffer {
 .listing-card {
   position: relative;
   z-index: 1;
-  width: min(72ch, 100%);
+  width: min(64ch, 100%);
   margin-left: 0;
   color: color-mix(in oklab, var(--mono12) 86%, var(--fg));
 }
@@ -635,9 +635,9 @@ h1.tty-comment {
   display: grid;
   gap: 0;
   margin: 0;
-  max-width: 68ch;
-  color: color-mix(in oklab, var(--mono12) 90%, var(--fg));
-  font: 400 14px / 1.55 var(--font-ui);
+  max-width: 46ch;
+  color: color-mix(in oklab, var(--mono12) 88%, var(--fg));
+  font: 400 14px / 1.65 var(--font-ui);
 }
 
 .tty-now p {
@@ -661,8 +661,120 @@ h1.tty-comment {
   text-decoration: underline;
 }
 
+.tty-pane__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 28px;
+}
+
+.tty-pane__id {
+  margin: 0;
+  color: var(--mono8);
+  font: 400 12px / 1.2 var(--font-ui);
+  letter-spacing: 0.08em;
+}
+
+.tty-pane__meta {
+  margin: 0;
+  color: var(--mono8);
+  font: 400 12px / 1.2 var(--font-ui);
+  letter-spacing: 0.04em;
+}
+
+.tty-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.9em;
+  margin-left: 0.4em;
+  background: var(--accent-text);
+  vertical-align: -0.08em;
+  animation: term-caret 1.1s steps(1, end) infinite;
+}
+
+.tty-pane__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(14ch, 18ch);
+  gap: 12px 40px;
+  align-items: start;
+}
+
+.tty-pane__main {
+  padding-left: 14px;
+  box-shadow: inset 2px 0 0 color-mix(in oklab, var(--accent-text) 62%, var(--mono6));
+}
+
+.tty-pane__main h1 {
+  margin: 0 0 16px;
+  color: var(--fg);
+  font: 500 18px / 1.2 var(--font-display);
+  letter-spacing: 0;
+}
+
+.tty-pane__log {
+  display: grid;
+  gap: 4px;
+  padding-top: 4px;
+  justify-items: start;
+}
+
+.tty-pane__log .tty-pane__id {
+  margin-bottom: 6px;
+}
+
+.tty-pane__log a {
+  color: color-mix(in oklab, var(--accent-text) 52%, var(--mono10));
+  font: 400 12px / 1.45 var(--font-ui);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  transition: color 160ms var(--ease-out-strong);
+}
+
+.tty-pane__log a:focus-visible {
+  outline: none;
+  color: color-mix(in oklab, var(--accent-text) 86%, var(--fg));
+  text-decoration: underline;
+}
+
+.tty-keys {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 16ch));
+  gap: 8px 28px;
+  margin-top: 40px;
+  padding-left: 14px;
+}
+
+.tty-keys a {
+  display: grid;
+  gap: 2px;
+  color: inherit;
+  text-decoration: none;
+  transition: color 160ms var(--ease-out-strong);
+}
+
+.tty-keys strong {
+  color: color-mix(in oklab, var(--mono12) 92%, var(--fg));
+  font: 500 14px / 1.3 var(--font-display);
+}
+
+.tty-keys span {
+  color: var(--mono8);
+  font: 400 12px / 1.3 var(--font-ui);
+}
+
+.tty-keys a:focus-visible {
+  outline: none;
+}
+
+.tty-keys a:focus-visible strong {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .tty-cmd--live::after {
+  .tty-cmd--live::after,
+  .tty-caret {
     animation: none;
     opacity: 0.7;
   }
