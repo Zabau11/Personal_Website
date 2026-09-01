@@ -1789,22 +1789,36 @@ footer > div > :first-child {
     grid-template-columns: 1fr;
   }
 
+  .tty-bar {
+    padding: 8px 12px;
+    gap: 10px;
+  }
+
+  .tty-bar__id,
+  .tty-bar__meta {
+    white-space: nowrap;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+
   .tty-tree {
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: 2px 4px;
-    padding: 6px 8px;
-    overflow: visible;
+    gap: 0;
+    padding: 4px 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
     border-right: 0;
     border-bottom: 1px solid color-mix(in oklab, var(--mono5) 90%, var(--accent-border));
+    font-size: 12px;
   }
 
   .tty-tree a {
-    min-height: 40px;
+    min-height: 36px;
     display: inline-flex;
     align-items: center;
-    padding: 0 8px;
+    padding: 0 6px;
   }
 
   .tty-tree__label {
@@ -1813,33 +1827,50 @@ footer > div > :first-child {
 
   .tty-buffer,
   main.tty-buffer {
-    padding: 20px 16px 88px;
+    padding: 16px 12px 72px;
   }
 
   .index-card,
   .listing-card {
     width: 100%;
     margin-left: 0;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
   }
 
   .tty-out {
     max-width: none;
-    font-size: 14px;
+    font-size: 13px;
   }
 
-  .tty-pane__grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
+  .tty-pane__main {
+    padding-left: 10px;
+  }
+
+  .tty-pane__main h1 {
+    font-size: 15px;
+    white-space: nowrap;
+  }
+
+  .tty-now {
+    max-width: none;
+    font: 400 12px / 1.55 var(--font-ui);
   }
 
   .tty-pane__log {
     padding-top: 0;
-    padding-left: 14px;
+    padding-left: 10px;
+  }
+
+  .tty-pane__log a {
+    white-space: nowrap;
   }
 
   .tty-keys {
     grid-template-columns: 1fr;
     max-width: 20ch;
+    padding-left: 10px;
   }
 
   .logo-button {
@@ -1860,7 +1891,6 @@ footer > div > :first-child {
   .prose h2,
   .prose p,
   .prose li,
-  .index-card,
   .entry-date,
   .small {
     overflow-wrap: anywhere;
