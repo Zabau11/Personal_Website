@@ -261,28 +261,52 @@ const revealThoughtText = () => {
     return;
   }
 
-  const scroller = writingScroller instanceof HTMLElement ? writingScroller : null;
-  let queue = [];
-  let flushFrame = 0;
+  const wrapWords = (block) => {
+    const visit = (node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.textContent || "";
 
-  const flushQueue = () => {
-    flushFrame = 0;
-    const wave = queue
-      .splice(0, queue.length)
-      .filter((el) => !el.classList.contains("is-inview"))
-      .sort((a, b) => {
-        if (a === b) {
-          return 0;
+        if (!text.trim()) {
+          return;
         }
 
-        return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
-      });
+        const fragment = document.createDocumentFragment();
 
-    wave.forEach((el, index) => {
-      el.style.setProperty("--reveal-delay", `${index * 70}ms`);
-      el.classList.add("is-inview");
+        text.split(/(\s+)/).forEach((part) => {
+          if (!part) {
+            return;
+          }
+
+          if (/^\s+$/.test(part)) {
+            fragment.appendChild(document.createTextNode(part));
+            return;
+          }
+
+          const word = document.createElement("span");
+          word.className = "thought-word";
+          word.textContent = part;
+          fragment.appendChild(word);
+        });
+
+        node.parentNode?.replaceChild(fragment, node);
+        return;
+      }
+
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        [...node.childNodes].forEach(visit);
+      }
+    };
+
+    visit(block);
+    [...block.querySelectorAll(".thought-word")].forEach((word, index) => {
+      word.style.setProperty("--word-index", String(index));
     });
+    block.classList.add("is-ready");
   };
+
+  blocks.forEach((block) => wrapWords(block));
+
+  const scroller = writingScroller instanceof HTMLElement ? writingScroller : null;
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -291,12 +315,8 @@ const revealThoughtText = () => {
           return;
         }
 
-        queue.push(entry.target);
+        entry.target.classList.add("is-inview");
         observer.unobserve(entry.target);
-
-        if (!flushFrame) {
-          flushFrame = window.requestAnimationFrame(flushQueue);
-        }
       });
     },
     {

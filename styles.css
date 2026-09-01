@@ -1649,13 +1649,26 @@ footer > div > :first-child {
   .writing-index-page [data-animate] {
     animation: none;
     opacity: 0;
-    transform: translateY(10px);
+    transform: none;
   }
 
-  .entry-page [data-animate].is-inview,
-  .writing-index-page [data-animate].is-inview {
-    animation: enter 0.58s cubic-bezier(0.23, 1, 0.32, 1) both;
-    animation-delay: var(--reveal-delay, 0s);
+  .entry-page [data-animate].is-ready,
+  .writing-index-page [data-animate].is-ready {
+    opacity: 1;
+  }
+
+  .entry-page .thought-word,
+  .writing-index-page .thought-word {
+    opacity: 0;
+  }
+
+  .entry-page [data-animate].is-inview .thought-word,
+  .writing-index-page [data-animate].is-inview .thought-word {
+    animation-name: thought-word-enter;
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    animation-fill-mode: both;
+    animation-delay: calc(var(--word-index) * 22ms);
   }
 
   .intro-title[data-animate] {
@@ -1707,6 +1720,16 @@ footer > div > :first-child {
   100% {
     opacity: 1;
     transform: none;
+  }
+}
+
+@keyframes thought-word-enter {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 
