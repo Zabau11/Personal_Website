@@ -105,16 +105,6 @@ const runSliceGlitch = () => {
     return count;
   });
   const densityTotal = density.reduce((sum, value) => sum + value, 0);
-  const dirs = [
-    [1, 0],
-    [-1, 0],
-    [0, 1],
-    [0, -1],
-    [1, 1],
-    [-1, 1],
-    [1, -1],
-    [-1, -1],
-  ];
 
   const live = document.createElement("pre");
   live.className = "code-drop__live";
@@ -136,86 +126,87 @@ const runSliceGlitch = () => {
     return occupied[occupied.length - 1];
   };
 
-  const growBlob = (seedX, seedY, target) => {
-    const picked = new Set([`${seedX},${seedY}`]);
-    const frontier = [[seedX, seedY]];
+  const runOnRow = (y, approxStart, length) => {
+    let start = Math.max(0, Math.min(cols - 1, approxStart));
+    let end = Math.max(start + 1, Math.min(cols, start + length));
 
-    while (picked.size < target && frontier.length > 0) {
-      const index = Math.floor(Math.random() * frontier.length);
-      const [x, y] = frontier[index];
-      const neighbors = [];
-
-      for (let i = dirs.length - 1; i > 0; i -= 1) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const swap = dirs[i];
-        dirs[i] = dirs[j];
-        dirs[j] = swap;
-      }
-
-      dirs.forEach(([dx, dy]) => {
-        const nx = x + dx;
-        const ny = y + dy;
-        const key = `${nx},${ny}`;
-
-        if (
-          ny >= 0 &&
-          nx >= 0 &&
-          ny < rows &&
-          nx < cols &&
-          !picked.has(key) &&
-          grid[ny][nx] !== " "
-        ) {
-          neighbors.push([nx, ny]);
-        }
-      });
-
-      if (neighbors.length === 0) {
-        frontier.splice(index, 1);
-        continue;
-      }
-
-      const [nx, ny] = neighbors[Math.floor(Math.random() * neighbors.length)];
-      picked.add(`${nx},${ny}`);
-      frontier.push([nx, ny]);
+    while (start < end && grid[y][start] === " ") {
+      start += 1;
     }
 
-    return picked;
+    while (end > start && grid[y][end - 1] === " ") {
+      end -= 1;
+    }
+
+    if (end - start < 2) {
+      return null;
+    }
+
+    return { y, start, end };
+  };
+
+  const pickRuns = () => {
+    const [seedX, seedY] = pickSeed();
+    const height = 2 + Math.floor(Math.random() * 5);
+    const startRow = Math.max(0, Math.min(rows - height, seedY - Math.floor(Math.random() * height)));
+    const runs = [];
+    let cursor = seedX;
+    let prevLength = 0;
+
+    for (let i = 0; i < height; i += 1) {
+      let length = 4 + Math.floor(Math.random() * 18);
+
+      for (let n = 0; n < 6 && Math.abs(length - prevLength) < 4; n += 1) {
+        length = 3 + Math.floor(Math.random() * 20);
+      }
+
+      cursor += Math.floor(Math.random() * 13) - 6;
+      const run = runOnRow(startRow + i, cursor - Math.floor(length * 0.35), length);
+
+      if (run) {
+        runs.push(run);
+        prevLength = run.end - run.start;
+        cursor = run.start + Math.floor((run.end - run.start) * 0.4);
+      }
+    }
+
+    return runs;
   };
 
   const pulse = () => {
-    let picked = new Set();
-    let minX = 0;
-    let maxX = 0;
-    let minY = 0;
-    let maxY = 0;
+    let runs = [];
 
-    for (let attempt = 0; attempt < 8; attempt += 1) {
-      const [seedX, seedY] = pickSeed();
-      const target = 8 + Math.floor(Math.random() ** 1.35 * 72);
-      picked = growBlob(seedX, seedY, target);
-      const cells = [...picked].map((key) => key.split(",").map(Number));
-      minX = Math.min(...cells.map(([x]) => x));
-      maxX = Math.max(...cells.map(([x]) => x));
-      minY = Math.min(...cells.map(([, y]) => y));
-      maxY = Math.max(...cells.map(([, y]) => y));
-      const key = `${minX},${minY},${picked.size}`;
+    for (let attempt = 0; attempt < 10; attempt += 1) {
+      runs = pickRuns();
+      const key = runs.map((run) => `${run.y}:${run.start}:${run.end}`).join("|");
 
-      if (key !== lastKey || occupied.length < 12) {
+      if (runs.length >= 2 && key !== lastKey) {
         lastKey = key;
         break;
       }
     }
 
+    if (runs.length === 0) {
+      window.setTimeout(pulse, 400);
+      return;
+    }
+
+    const minX = Math.min(...runs.map((run) => run.start));
+    const minY = Math.min(...runs.map((run) => run.y));
+    const maxY = Math.max(...runs.map((run) => run.y));
     const lines = [];
 
     for (let y = minY; y <= maxY; y += 1) {
-      let line = "";
+      const run = runs.find((item) => item.y === y);
 
-      for (let x = minX; x <= maxX; x += 1) {
-        line += picked.has(`${x},${y}`) ? grid[y][x] : " ";
+      if (!run) {
+        lines.push("");
+        continue;
       }
 
-      lines.push(line);
+      lines.push(
+        `${" ".repeat(run.start - minX)}${grid[y].slice(run.start, run.end).join("")}`
+      );
     }
 
     const dropRect = drop.getBoundingClientRect();
