@@ -626,6 +626,33 @@ main.tty-buffer {
   padding-bottom: var(--gap-3x);
 }
 
+.scroll-hint {
+  position: absolute;
+  left: calc(176px + 28px);
+  bottom: calc(var(--code-floor-height) + var(--gap));
+  z-index: 2;
+  margin: 0;
+  color: color-mix(in oklab, var(--accent-text) 70%, var(--mono9));
+  font: 500 11px / 1.2 var(--font-ui);
+  letter-spacing: 0.04em;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms var(--ease-out-strong);
+}
+
+.scroll-hint::before {
+  content: "↓";
+  margin-right: var(--gap);
+}
+
+.scroll-hint.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .index-card,
 .listing-card {
   position: relative;
@@ -1623,6 +1650,10 @@ footer > div > :first-child {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .scroll-hint.is-visible {
+    animation: scroll-hint-enter 480ms var(--ease-out-strong) both;
+  }
+
   [data-animate] {
     animation: enter 0.6s both;
     animation-delay: calc(var(--stagger) * var(--delay) + var(--start));
@@ -1639,6 +1670,11 @@ footer > div > :first-child {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .scroll-hint {
+    transition: none;
+    transform: none;
+  }
+
   .index-feature-link,
   .index-feature-link::after {
     transition: none;
@@ -1672,6 +1708,23 @@ footer > div > :first-child {
   100% {
     opacity: 1;
     transform: none;
+  }
+}
+
+@keyframes scroll-hint-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  68% {
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -1955,6 +2008,10 @@ footer > div > :first-child {
   .tty-buffer,
   main.tty-buffer {
     padding: 16px 12px 72px;
+  }
+
+  .scroll-hint {
+    left: 12px;
   }
 
   .index-card,

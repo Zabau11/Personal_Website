@@ -239,6 +239,42 @@ const runSliceGlitch = () => {
 
 runSliceGlitch();
 
+const writingScroller = document.querySelector(
+  ".entry-page main.tty-buffer, .writing-index-page main.tty-buffer"
+);
+const scrollHint = document.querySelector("[data-scroll-hint]");
+
+if (writingScroller instanceof HTMLElement && scrollHint instanceof HTMLElement) {
+  const edgeThreshold = 2;
+  let scrollHintDismissed = writingScroller.scrollTop > edgeThreshold;
+
+  const updateScrollHint = () => {
+    const maxScroll = Math.max(0, writingScroller.scrollHeight - writingScroller.clientHeight);
+    const hasOverflow = maxScroll > edgeThreshold;
+    const hasStartedScrolling = writingScroller.scrollTop > edgeThreshold;
+    const isAtBottom = maxScroll - writingScroller.scrollTop <= edgeThreshold;
+
+    if (hasStartedScrolling) {
+      scrollHintDismissed = true;
+    }
+
+    scrollHint.classList.toggle(
+      "is-visible",
+      hasOverflow && !scrollHintDismissed && !isAtBottom
+    );
+  };
+
+  writingScroller.addEventListener("scroll", updateScrollHint, { passive: true });
+  window.addEventListener("resize", updateScrollHint);
+  window.addEventListener("load", updateScrollHint);
+  window.addEventListener("pageshow", updateScrollHint);
+  window.requestAnimationFrame(updateScrollHint);
+
+  if (document.fonts) {
+    document.fonts.ready.then(updateScrollHint);
+  }
+}
+
 if (themeToggle instanceof HTMLButtonElement) {
   themeToggle.addEventListener("click", () => {
     setTheme(getTheme() === "light" ? "dark" : "light");
@@ -439,4 +475,3 @@ projectsScrollers.forEach((scroller) => {
     bindMobileScrollerBlur(scroller);
   }
 });
-
