@@ -662,10 +662,6 @@ h1.tty-comment {
 }
 
 .tty-pane__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
   margin: 0 0 28px;
 }
 
@@ -674,13 +670,6 @@ h1.tty-comment {
   color: var(--mono8);
   font: 400 12px / 1.2 var(--font-ui);
   letter-spacing: 0.08em;
-}
-
-.tty-pane__meta {
-  margin: 0;
-  color: var(--mono8);
-  font: 400 12px / 1.2 var(--font-ui);
-  letter-spacing: 0.04em;
 }
 
 .tty-caret {
