@@ -494,6 +494,24 @@ footer.tty-status,
   color: color-mix(in oklab, var(--mono8) 70%, var(--accent-text));
 }
 
+.code-drop__glyphs {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  white-space: pre;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .code-drop__glyphs {
+    animation: code-glitch 9s linear infinite;
+  }
+}
+
 @media (max-width: 640px) {
   .code-drop {
     font-size: 9px;
@@ -1649,6 +1667,40 @@ footer > div > :first-child {
   50%,
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes code-glitch {
+  0%,
+  86%,
+  100% {
+    transform: translate(0, 0);
+    text-shadow: none;
+  }
+
+  87% {
+    transform: translate(-2px, 0);
+    text-shadow: -2px 0 #9bd3ae, 2px 0 #6b635a;
+  }
+
+  88.5% {
+    transform: translate(2px, 1px);
+    text-shadow: 2px 0 #9bd3ae, -1px 0 #6b635a;
+  }
+
+  90% {
+    transform: translate(0, 0);
+    text-shadow: none;
+  }
+
+  93% {
+    transform: translate(1px, 0);
+    text-shadow: -1px 0 #9bd3ae;
+  }
+
+  94% {
+    transform: translate(0, 0);
+    text-shadow: none;
   }
 }
 
