@@ -183,6 +183,21 @@ html {
   overscroll-behavior: none;
 }
 
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.56s;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+html.is-theme-switching,
+html.is-theme-switching *,
+html.is-theme-switching *::before,
+html.is-theme-switching *::after {
+  transition-duration: 0.56s !important;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1) !important;
+  transition-property: background, background-color, color, border-color, outline-color, fill, stroke, box-shadow, text-shadow, caret-color, text-decoration-color, opacity, filter !important;
+}
+
 body {
   margin: 0;
   height: 100%;
@@ -1669,6 +1684,12 @@ footer > div > :first-child {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+
   .scroll-hint {
     transition: none;
     transform: none;

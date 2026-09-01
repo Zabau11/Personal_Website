@@ -5,7 +5,9 @@ const themeToggle = document.querySelector("[data-theme-toggle]");
 
 const getTheme = () => rootElement.dataset.theme === "light" ? "light" : "dark";
 
-const setTheme = (theme) => {
+let themeSwitchTimer = 0;
+
+const applyTheme = (theme) => {
   rootElement.dataset.theme = theme;
 
   try {
@@ -18,7 +20,31 @@ const setTheme = (theme) => {
     const nextTheme = theme === "light" ? "dark" : "light";
     themeToggle.setAttribute("aria-label", `Switch to ${nextTheme} mode`);
   }
+};
 
+const setTheme = (theme, { animate = false } = {}) => {
+  if (!animate || prefersReducedMotion) {
+    applyTheme(theme);
+    return;
+  }
+
+  const finish = () => {
+    rootElement.classList.remove("is-theme-switching");
+  };
+
+  if (typeof document.startViewTransition === "function") {
+    const transition = document.startViewTransition(() => {
+      applyTheme(theme);
+    });
+
+    transition.finished.then(finish).catch(finish);
+    return;
+  }
+
+  rootElement.classList.add("is-theme-switching");
+  applyTheme(theme);
+  window.clearTimeout(themeSwitchTimer);
+  themeSwitchTimer = window.setTimeout(finish, 560);
 };
 
 if (!rootElement.dataset.theme) {
@@ -350,7 +376,7 @@ if (writingScroller instanceof HTMLElement && scrollHint instanceof HTMLElement)
 
 if (themeToggle instanceof HTMLButtonElement) {
   themeToggle.addEventListener("click", () => {
-    setTheme(getTheme() === "light" ? "dark" : "light");
+    setTheme(getTheme() === "light" ? "dark" : "light", { animate: true });
   });
 }
 
