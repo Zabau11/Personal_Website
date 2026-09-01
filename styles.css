@@ -501,6 +501,12 @@ footer.tty-status,
   }
 }
 
+@media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .code-drop {
+    animation: code-breathe 7s ease-in-out infinite;
+  }
+}
+
 .tty-bar a,
 .theme-toggle {
   color: inherit;
@@ -1649,6 +1655,17 @@ footer > div > :first-child {
   50%,
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes code-breathe {
+  0%,
+  100% {
+    opacity: 0.52;
+  }
+
+  50% {
+    opacity: 1;
   }
 }
 
