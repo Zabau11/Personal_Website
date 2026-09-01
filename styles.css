@@ -494,15 +494,28 @@ footer.tty-status,
   color: color-mix(in oklab, var(--mono8) 70%, var(--accent-text));
 }
 
-@media (max-width: 640px) {
+.code-drop__glyphs {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  white-space: pre;
+}
+
+@media (max-width: 768px) {
   .code-drop {
-    font-size: 9px;
-    transform: translate(-50%, 10%);
+    font-size: 11px;
+    transform: translate(-50%, 2%);
+    color: color-mix(in oklab, var(--mono9) 45%, var(--accent-text));
   }
 }
 
 @media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
-  .code-drop {
+  .code-drop__glyphs {
     animation: code-breathe 7s ease-in-out infinite;
   }
 }
@@ -1661,7 +1674,7 @@ footer > div > :first-child {
 @keyframes code-breathe {
   0%,
   100% {
-    opacity: 0.52;
+    opacity: 0.7;
   }
 
   50% {
