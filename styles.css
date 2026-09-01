@@ -739,17 +739,19 @@ h1.tty-comment {
   gap: 2px;
   color: inherit;
   text-decoration: none;
-  transition: color 160ms var(--ease-out-strong);
 }
 
 .tty-keys strong {
   color: color-mix(in oklab, var(--mono12) 92%, var(--fg));
   font: 500 14px / 1.3 var(--font-display);
+  text-underline-offset: 3px;
+  transition: color 160ms var(--ease-out-strong);
 }
 
 .tty-keys span {
   color: var(--mono8);
   font: 400 12px / 1.3 var(--font-ui);
+  transition: color 160ms var(--ease-out-strong);
 }
 
 .tty-keys a:focus-visible {
@@ -757,8 +759,12 @@ h1.tty-comment {
 }
 
 .tty-keys a:focus-visible strong {
+  color: color-mix(in oklab, var(--accent-text) 86%, var(--fg));
   text-decoration: underline;
-  text-underline-offset: 3px;
+}
+
+.tty-keys a:focus-visible span {
+  color: var(--mono10);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1461,28 +1467,42 @@ section p + p {
   color: inherit;
   text-decoration: none;
   font: 400 14px / 1.55 var(--font-ui);
-  transition: color var(--transition-xx) ease;
 }
 
 .work-entry__meta {
   color: var(--dev-blue);
   font: 400 14px / 1.55 var(--font-ui);
+  transition: color 160ms var(--ease-out-strong);
 }
 
 .work-entry__title {
   color: color-mix(in oklab, var(--mono12) 92%, var(--fg));
   font: 500 14px / 1.55 var(--font-display);
+  text-underline-offset: 3px;
+  transition: color 160ms var(--ease-out-strong);
 }
 
 .work-entry__description {
   color: var(--mono10);
   font: 400 14px / 1.55 var(--font-ui);
+  transition: color 160ms var(--ease-out-strong);
 }
 
 .work-entry:focus-visible {
   outline: none;
-  color: color-mix(in oklab, var(--accent-text) 76%, var(--fg));
-  text-decoration: none;
+}
+
+.work-entry:focus-visible .work-entry__title {
+  color: color-mix(in oklab, var(--accent-text) 86%, var(--fg));
+  text-decoration: underline;
+}
+
+.work-entry:focus-visible .work-entry__description {
+  color: var(--mono11);
+}
+
+.work-entry:focus-visible .work-entry__meta {
+  color: color-mix(in oklab, var(--accent-text) 70%, var(--dev-blue));
 }
 
 footer {
@@ -1635,7 +1655,12 @@ footer > div > :first-child {
   }
 
   .tty-keys a:hover strong {
-    color: var(--fg);
+    color: color-mix(in oklab, var(--accent-text) 86%, var(--fg));
+    text-decoration: underline;
+  }
+
+  .tty-keys a:hover span {
+    color: var(--mono10);
   }
 
   .index-feature-link:hover {
@@ -1725,14 +1750,17 @@ footer > div > :first-child {
     color: color-mix(in oklab, var(--accent-text) 78%, var(--mono11));
   }
 
-  .work-entry:hover,
-  .work-entry:focus-visible {
-    background: none;
+  .work-entry:hover .work-entry__title {
+    color: color-mix(in oklab, var(--accent-text) 86%, var(--fg));
+    text-decoration: underline;
   }
 
-  .work-entry:hover .work-entry__title,
-  .work-entry:focus-visible .work-entry__title {
-    color: color-mix(in oklab, var(--mono12) 98%, var(--fg));
+  .work-entry:hover .work-entry__description {
+    color: var(--mono11);
+  }
+
+  .work-entry:hover .work-entry__meta {
+    color: color-mix(in oklab, var(--accent-text) 70%, var(--dev-blue));
   }
 }
 
