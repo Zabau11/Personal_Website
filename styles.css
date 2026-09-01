@@ -1844,6 +1844,11 @@ footer > div > :first-child {
     font-size: 13px;
   }
 
+  .tty-pane__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
   .tty-pane__main {
     padding-left: 10px;
   }
