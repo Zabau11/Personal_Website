@@ -48,59 +48,189 @@ const runSliceGlitch = () => {
 
   const drop = document.querySelector(".code-drop");
   const split = drop?.closest(".tty-split");
-  const slices = [...document.querySelectorAll(".code-drop__slice")].filter((el) =>
-    /\S/.test(el.textContent || "")
-  );
+  const sliceEls = [...document.querySelectorAll(".code-drop__slice")];
 
-  if (!drop || !split || slices.length === 0) {
+  if (!drop || !split || sliceEls.length === 0) {
     return;
   }
+
+  const SLICE_COLS = 8;
+  const sliceLines = (el) => (el.textContent || "").replace(/\n$/, "").split("\n");
+  const linesPerSlice = Math.max(...sliceEls.map((el) => sliceLines(el).length));
+  const sliceWidth = Math.max(
+    ...sliceEls.flatMap((el) => sliceLines(el).map((line) => line.length))
+  );
+  const rows = Math.ceil(sliceEls.length / SLICE_COLS) * linesPerSlice;
+  const cols = SLICE_COLS * sliceWidth;
+  const grid = Array.from({ length: rows }, () => Array(cols).fill(" "));
+
+  sliceEls.forEach((el, index) => {
+    const sliceCol = index % SLICE_COLS;
+    const sliceRow = Math.floor(index / SLICE_COLS);
+
+    sliceLines(el).forEach((line, lineIndex) => {
+      const y = sliceRow * linesPerSlice + lineIndex;
+
+      for (let x = 0; x < line.length; x += 1) {
+        grid[y][sliceCol * sliceWidth + x] = line[x];
+      }
+    });
+  });
+
+  const occupied = [];
+
+  for (let y = 0; y < rows; y += 1) {
+    for (let x = 0; x < cols; x += 1) {
+      if (grid[y][x] !== " ") {
+        occupied.push([x, y]);
+      }
+    }
+  }
+
+  if (occupied.length === 0) {
+    return;
+  }
+
+  const density = occupied.map(([x, y]) => {
+    let count = 0;
+
+    for (let dy = -2; dy <= 2; dy += 1) {
+      for (let dx = -2; dx <= 2; dx += 1) {
+        if (grid[y + dy]?.[x + dx] && grid[y + dy][x + dx] !== " ") {
+          count += 1;
+        }
+      }
+    }
+
+    return count;
+  });
+  const densityTotal = density.reduce((sum, value) => sum + value, 0);
+  const dirs = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+    [1, 1],
+    [-1, 1],
+    [1, -1],
+    [-1, -1],
+  ];
 
   const live = document.createElement("pre");
   live.className = "code-drop__live";
   live.setAttribute("aria-hidden", "true");
   split.appendChild(live);
 
-  const weights = slices.map((el) => (el.textContent.match(/\S/g) || []).length);
-  const total = weights.reduce((sum, weight) => sum + weight, 0);
-  let lastIndex = -1;
+  let lastKey = "";
 
-  const pickSlice = () => {
-    let index = 0;
+  const pickSeed = () => {
+    let roll = Math.random() * densityTotal;
 
-    for (let attempt = 0; attempt < 10; attempt += 1) {
-      let roll = Math.random() * total;
-      index = weights.length - 1;
+    for (let i = 0; i < occupied.length; i += 1) {
+      roll -= density[i];
+      if (roll <= 0) {
+        return occupied[i];
+      }
+    }
 
-      for (let i = 0; i < weights.length; i += 1) {
-        roll -= weights[i];
-        if (roll <= 0) {
-          index = i;
-          break;
-        }
+    return occupied[occupied.length - 1];
+  };
+
+  const growBlob = (seedX, seedY, target) => {
+    const picked = new Set([`${seedX},${seedY}`]);
+    const frontier = [[seedX, seedY]];
+
+    while (picked.size < target && frontier.length > 0) {
+      const index = Math.floor(Math.random() * frontier.length);
+      const [x, y] = frontier[index];
+      const neighbors = [];
+
+      for (let i = dirs.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const swap = dirs[i];
+        dirs[i] = dirs[j];
+        dirs[j] = swap;
       }
 
-      if (index !== lastIndex || slices.length < 2) {
+      dirs.forEach(([dx, dy]) => {
+        const nx = x + dx;
+        const ny = y + dy;
+        const key = `${nx},${ny}`;
+
+        if (
+          ny >= 0 &&
+          nx >= 0 &&
+          ny < rows &&
+          nx < cols &&
+          !picked.has(key) &&
+          grid[ny][nx] !== " "
+        ) {
+          neighbors.push([nx, ny]);
+        }
+      });
+
+      if (neighbors.length === 0) {
+        frontier.splice(index, 1);
+        continue;
+      }
+
+      const [nx, ny] = neighbors[Math.floor(Math.random() * neighbors.length)];
+      picked.add(`${nx},${ny}`);
+      frontier.push([nx, ny]);
+    }
+
+    return picked;
+  };
+
+  const pulse = () => {
+    let picked = new Set();
+    let minX = 0;
+    let maxX = 0;
+    let minY = 0;
+    let maxY = 0;
+
+    for (let attempt = 0; attempt < 8; attempt += 1) {
+      const [seedX, seedY] = pickSeed();
+      const target = 8 + Math.floor(Math.random() ** 1.35 * 72);
+      picked = growBlob(seedX, seedY, target);
+      const cells = [...picked].map((key) => key.split(",").map(Number));
+      minX = Math.min(...cells.map(([x]) => x));
+      maxX = Math.max(...cells.map(([x]) => x));
+      minY = Math.min(...cells.map(([, y]) => y));
+      maxY = Math.max(...cells.map(([, y]) => y));
+      const key = `${minX},${minY},${picked.size}`;
+
+      if (key !== lastKey || occupied.length < 12) {
+        lastKey = key;
         break;
       }
     }
 
-    lastIndex = index;
-    return slices[index];
-  };
+    const lines = [];
 
-  const pulse = () => {
-    const slice = pickSlice();
-    const rect = slice.getBoundingClientRect();
-    const style = window.getComputedStyle(slice);
+    for (let y = minY; y <= maxY; y += 1) {
+      let line = "";
 
-    live.textContent = slice.textContent;
-    live.style.left = `${rect.left}px`;
-    live.style.top = `${rect.top}px`;
+      for (let x = minX; x <= maxX; x += 1) {
+        line += picked.has(`${x},${y}`) ? grid[y][x] : " ";
+      }
+
+      lines.push(line);
+    }
+
+    const dropRect = drop.getBoundingClientRect();
+    const style = window.getComputedStyle(drop);
+    const cellW = dropRect.width / cols;
+    const cellH = dropRect.height / rows;
+
+    live.textContent = lines.join("\n");
+    live.style.left = `${dropRect.left + minX * cellW}px`;
+    live.style.top = `${dropRect.top + minY * cellH}px`;
     live.style.fontFamily = style.fontFamily;
     live.style.fontSize = style.fontSize;
     live.style.fontWeight = style.fontWeight;
     live.style.letterSpacing = style.letterSpacing;
+    live.style.lineHeight = style.lineHeight;
     live.classList.remove("is-on");
     void live.offsetWidth;
     live.classList.add("is-on");

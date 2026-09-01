@@ -519,7 +519,6 @@ footer.tty-status,
   margin: 0;
   padding: 0;
   border: 0;
-  overflow: hidden;
   pointer-events: none;
   user-select: none;
   background: none;
