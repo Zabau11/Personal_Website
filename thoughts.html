@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>David Sabau</title>
+    <title>Thoughts | David Sabau</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta
       name="description"
-      content="Personal website of David Sabau, featuring practical AI products, selected work, and thoughts."
+      content="Thoughts index with annual reflections and notes on product building, execution, and learning."
     />
     <script>
       window.va =
@@ -17,26 +17,6 @@
         };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://zabau.ceo/" />
-    <meta property="og:title" content="David Sabau" />
-    <meta
-      property="og:description"
-      content="Personal website of David Sabau, featuring practical AI products, selected work, and thoughts."
-    />
-    <meta property="og:image" content="https://zabau.ceo/images/preview.png" />
-    <meta property="og:image:alt" content="Preview of David Sabau's personal website" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="David Sabau" />
-    <meta
-      name="twitter:description"
-      content="Personal website of David Sabau, featuring practical AI products, selected work, and thoughts."
-    />
-    <meta name="twitter:image" content="https://zabau.ceo/images/preview.png" />
-    <meta name="twitter:image:alt" content="Preview of David Sabau's personal website" />
     <script>
       (() => {
         const storedTheme = (() => {
@@ -59,8 +39,8 @@
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body class="home-page">
-    <div class="tty site-root home-root" id="home">
+  <body class="writing-index-page">
+    <div class="tty site-root subpage-root">
       <header class="tty-bar">
         <a class="tty-bar__id" href="./index.html" aria-label="David Sabau home">david@zabau<span>:~</span></a>
         <div class="tty-bar__meta">
@@ -74,52 +54,42 @@
       <div class="tty-split">
         <nav class="tty-tree" aria-label="Files">
           <p class="tty-tree__label">~/</p>
-          <a href="./index.html" class="is-current" aria-current="page">index</a>
+          <a href="./index.html">index</a>
           <a href="./projects.html">work/</a>
-          <a href="./thoughts.html">thoughts/</a>
+          <a href="./thoughts.html" class="is-current" aria-current="page">thoughts/</a>
           <p class="tty-tree__label">ext/</p>
           <a href="https://github.com/Zabau11" rel="noopener" target="_blank">github</a>
           <a href="https://www.linkedin.com/in/david-sabau-256834401/" rel="noopener" target="_blank">linkedin</a>
         </nav>
         <main class="tty-buffer">
-          <article class="index-card tty-pane">
-            <header class="tty-pane__head">
-              <p class="tty-pane__id">now<span class="tty-caret" aria-hidden="true"></span></p>
-            </header>
-            <div class="tty-pane__grid">
-              <div class="tty-pane__main">
-                <h1>david sabau</h1>
-                <div class="tty-now">
-                  <p>Coding and running for fun.</p>
-                  <p>
-                    Currently doing growth at
-                    <a href="https://ugcagent.app/" rel="noopener" target="_blank">UGC Agent</a>.
-                  </p>
-                  <p>
-                    Check me out on
-                    <a href="https://strava.app.link/lq7HWtzQm5b" rel="noopener" target="_blank">Strava</a>, been lazy
-                    lately.
-                  </p>
-                  <p>Work until it's unreasonable to fail :)</p>
-                </div>
-              </div>
-              <aside class="tty-pane__log" aria-label="Latest thoughts">
-                <p class="tty-pane__id">latest</p>
-                <a href="./2026.html">2026-so-far</a>
-                <a href="./2025.html">annual-reflection-2025</a>
-              </aside>
-            </div>
-            <nav class="tty-keys" aria-label="Open">
-              <a href="./projects.html">
-                <strong>work/</strong>
-                <span>6 projects</span>
-              </a>
-              <a href="./thoughts.html">
-                <strong>thoughts/</strong>
-                <span>notes</span>
-              </a>
-            </nav>
+          <article class="listing-card" data-animation-controller="true">
+            <h1 class="tty-comment"># notes and reflections</h1>
+            <p class="tty-cmd">ls ./thoughts</p>
+            <section class="writing-list" data-animate style="--stagger: 2">
+            <ul class="writing-list__items">
+              <li class="writing-entry">
+                <a class="writing-entry__link" href="./2026.html">
+                  <span class="writing-entry__meta tabular">01</span>
+                  <span class="writing-entry__title">2026 So Far</span>
+                  <span class="writing-entry__date tabular">04/19</span>
+                </a>
+              </li>
+              <li class="writing-entry">
+                <a class="writing-entry__link" href="./2025.html">
+                  <span class="writing-entry__meta tabular">02</span>
+                  <span class="writing-entry__title">Annual Reflection 2025</span>
+                  <span class="writing-entry__date tabular">12/31</span>
+                </a>
+              </li>
+              <li class="writing-entry writing-entry--placeholder">
+                <span class="writing-entry__meta tabular">--</span>
+                <span class="writing-entry__title">More notes coming soon</span>
+                <span class="writing-entry__date tabular">--/--</span>
+              </li>
+            </ul>
+          </section>
           </article>
+          
         </main>
           <pre class="code-drop" aria-hidden="true">                                                                                                                                                                                
                                                                               .         .                .                                                                      
